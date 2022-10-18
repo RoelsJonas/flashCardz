@@ -2,14 +2,34 @@ extends layout
 
 block content
     div
-        form(action="/create_new_course/" method="post")
-            label(for="course_title") Course title:
-            input(
-                id="course_title"
-                type="text"
-                name="title_field"
-            )
-            input(
-                type="submit"
-                value="Add"
-            )
+        form(
+            class="w3-border w3-padding" 
+            action="/create_new_course/" 
+            method="post"
+        )   
+            div
+                label(for="course_title") Course title:
+                input(
+                    id="course_title"
+                    type="text"
+                    name="title_field"
+                )
+            div
+                label(for="course_id") Course ID:
+                input(
+                    id="course_id"
+                    type="text"
+                    name="id_field"
+                )
+            div
+                label(for="course_decription") Description: 
+                input(
+                    id="course_description"
+                    type="text"
+                    name="description_field"
+                )
+            div
+                input(
+                    type="submit"
+                    value="Add"
+                )
