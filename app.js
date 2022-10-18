@@ -9,6 +9,13 @@ var usersRouter = require('./routes/users');
 var coursesRouter = require('./routes/courses');
 var aboutRouter = require('./routes/about');
 
+//Instantiating MongoDB database
+const mongoose = require("mongoose");
+const mongoDB = "mongodb+srv://Jonil:Jonil123@flashcardz.7w8whn4.mongodb.net/local_library?retryWrites=true&w=majority";
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
 var app = express();
 
 // view engine setup
