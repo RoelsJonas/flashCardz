@@ -1,9 +1,15 @@
 extends layout
 
-
-
 block content
     div
-        p courses
-        p test
-        p test
+        form(action="/create_new_course/" method="post")
+            label(for="course_title") Course title:
+            input(
+                id="course_title"
+                type="text"
+                name="title_field"
+            )
+            input(
+                type="submit"
+                value="Add"
+            )

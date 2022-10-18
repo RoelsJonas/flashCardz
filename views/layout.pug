@@ -2,11 +2,13 @@ doctype html
 html
   head
     title= title
+    meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css")
     link(rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css")
     link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans')
     link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
-  body
+  body(class="w3-theme-15")
+<!-- regular nav bar -->  
     div(class='w3-top')
       div(class="w3-bar w3-theme-d2 w3-left-align w3-large")
         a(class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()")
@@ -15,5 +17,12 @@ html
           i(class="fa fa-home w3-margin-right") 
         a(href="/courses" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News") Courses
         a(href="/about" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News") About
+<!-- navbar for mobile -->
+    div(id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide-large w3-hide-medium w3-large")
+      a(href="/" class="w3-bar-item w3-button w3-padding-large") Home
+      a(href="/courses" class="w3-bar-item w3-button w3-padding-large") Coures
+      a(href="/about" class="w3-bar-item w3-button w3-padding-large") About
+    
+    div(class="w3-container w3-content" style="max-width:1400px;margin-top:80px")
       block content
       
