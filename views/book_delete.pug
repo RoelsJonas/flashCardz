@@ -1,0 +1,39 @@
+extends layout
+
+block content
+    h1 Title: #{book.title}
+    p #[strong ISBN:] #{book.isbn}
+
+    p #[strong Summary:] #{book.summary}
+
+    if book_instances.length
+
+        p #[strong Delete the following booksinstances before attempting to delete this book.]
+
+        div(style='margin-left:20px;margin-top:20px')
+
+        h4 Bookinstances
+
+        dl
+        each bookinstance in book_instances
+            dt
+                a(href=bookinstance.url) #{bookinstance.book.title} : #{bookinstance.imprint} - 
+                    if bookinstance.status=='Available'
+                        span.text-success #{bookinstance.status}
+                    else if bookinstance.status=='Maintenance'
+                        span.text-danger #{bookinstance.status}
+                    else
+                        span.text-warning #{bookinstance.status}
+                    if bookinstance.status!='Available'
+                        span  (Due: #{bookinstance.due_back_formatted} )
+            dd
+
+    else
+        p Do you really want to delete this Book?
+
+        form(method='POST' action='')
+        div.form-group
+            input#bookid.form-control(type='hidden',name='bookid', required='true', value=book._id )
+
+        button.btn.btn-primary(type='submit') Delete
+        
