@@ -1,0 +1,21 @@
+extends layout 
+
+block content 
+    h1= course.name
+    unless course.code == ""
+        p 
+            strong Code: 
+            |   #{course.code}
+    unless course.school == ""
+        p 
+            strong School: 
+            |   #{course.school}
+    unless creator == "" 
+        p 
+            strong Creator:
+            |   #{creator}
+    unless course.description == ""
+        p 
+            strong Description: 
+        p= course.description
+    

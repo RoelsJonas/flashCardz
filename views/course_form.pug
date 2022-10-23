@@ -1,0 +1,18 @@
+extends layout 
+
+block content 
+    h1 New Course 
+    form(method='POST' action='')
+        div.for-group
+            label(for='name') Name:
+            input#name.form-control(type='text', placeholder="Name of the course", name="name", required='true')
+        div.for-group
+            label(for='description') Description:
+            input#Descroption.form-control(type='text', placeholder="Description of the course (optional)", name="description")
+        div.for-group
+            label(for='code') Code:
+            input#code.form-control(type='text', placeholder="ECTS Code of the course (optional)", name="code")
+        div.for-group
+            label(for='school') School:
+            input#school.form-control(type='text', placeholder="Name of the school the course is given at (optional)", name="school")
+        button.btn.btn-primary(type='submit') Create course

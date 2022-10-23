@@ -16,6 +16,7 @@ const isLoggedIn = async (req, res, next) => {
             const payload = await jwt.verify(token, SECRET);
             if (payload) {
               // store user data in request object
+              console.log(payload);
               req.user = payload;
               state = true;
               next();
