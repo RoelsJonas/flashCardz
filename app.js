@@ -5,24 +5,33 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var compression = require("compression");
 var helmet = require("helmet");
+const cors = require("cors");
+const {log} = require("mercedlogger");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var coursesRouter = require('./routes/courses');
 var aboutRouter = require('./routes/about');
 var catalogRouter = require("./routes/catalog");
+var userRouter = require("./controllers/userController");
+var signupRouter = require("./routes/signup");
+var loginRouter = require("./routes/login");
+var todoRouter = require("./controllers/todoController");
+var profileRouter = require("./routes/profile");
+var singoutRouter = require("./routes/logout");
 
 //Instantiating MongoDB database
-const mongoose = require("mongoose");
-const mongoDB = "mongodb+srv://Jonil:Jonil123@flashcardz.7w8whn4.mongodb.net/local_library?retryWrites=true&w=majority";
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
+// const mongoose = require("mongoose");
+// const mongoDB = "mongodb+srv://Jonil:Jonil123@flashcardz.7w8whn4.mongodb.net/flashcardz?retryWrites=true&w=majority";
+// mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+// const db = mongoose.connection;
+// db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 var app = express();
 
 app.use(compression());
 app.use(helmet());
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,6 +48,12 @@ app.use('/users', usersRouter);
 app.use('/courses', coursesRouter);
 app.use('/about', aboutRouter);
 app.use("/catalog", catalogRouter);
+app.use("/user", userRouter);
+app.use("/signup", signupRouter);
+app.use("/login", loginRouter);
+app.use("/todos", todoRouter);
+app.use("/profile", profileRouter);
+app.use("/logout", singoutRouter);
 
 
 // catch 404 and forward to error handler

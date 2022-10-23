@@ -1,0 +1,29 @@
+extends layout 
+
+
+block content
+    h1 Log in:
+    
+    form(
+            action="/user/login" 
+            method="POST"
+            )   
+        div.form-group
+            label(for="username") User name:
+            input.form-control(
+                id="username"
+                type="text"
+                name="username"
+            )
+        div.form-group
+            label(for="password") Password:
+            input.form-control(
+                id="password"
+                type="password"
+                name="password"
+            )
+        div.form-group
+            input.btn.btn-primary(
+                type="submit"
+                value="Log in"
+            )

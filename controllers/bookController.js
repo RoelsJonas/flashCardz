@@ -31,6 +31,7 @@ exports.index = function (req, res) {
         title: "Local Library Home",
         error: err,
         data: results,
+        user : req.user
       });
     }
   );
