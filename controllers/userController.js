@@ -2,6 +2,7 @@ const { Router } = require("express"); // import router from express
 const User = require("../models/User"); // import user model
 const bcrypt = require("bcryptjs"); // import bcrypt to hash passwords
 const jwt = require("jsonwebtoken"); // import jwt to sign tokens
+const { body, validationResult } = require("express-validator");
 
 const router = Router(); // create router to create route bundle
 
@@ -10,14 +11,14 @@ const SECRET = "SECRET123";
 router.post("/signup", async (req, res) => {
     try {
       // hash the password
-      
-      console.log(req.body);
-      console.log(req.body.username);
       req.body.password = await bcrypt.hash(req.body.password, 10);
       // create a new user
       console.log("test");
       const user = await User.create({
         username: req.body.username,
+        firstName: req.body.firstname,
+        lastName: req.body.lastname,
+        email: req.body.email,
         password: req.body.password
       });
       console.log("test");

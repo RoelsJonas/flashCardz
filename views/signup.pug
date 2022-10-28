@@ -14,6 +14,31 @@ block content
                 id="username"
                 type="text"
                 name="username"
+                required='true'
+            )
+        div.form-group
+            label(for="firstname") First name:
+            input.form-control(
+                id="firstname"
+                type="firstname"
+                name="firstname"
+                required='true'
+            )
+        div.form-group
+            label(for="lastname") Last name:
+            input.form-control(
+                id="lastname"
+                type="lastname"
+                name="lastname"
+                required='true'
+            )
+        div.form-group
+            label(for="email") E-mail:
+            input.form-control(
+                id="email"
+                type="email"
+                name="email"
+                required='true'
             )
         div.form-group
             label(for="password") Password:
@@ -21,6 +46,7 @@ block content
                 id="password"
                 type="password"
                 name="password"
+                required='true'
             )
         div.form-group
             input.btn.btn-primary(
