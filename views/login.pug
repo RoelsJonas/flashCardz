@@ -3,7 +3,14 @@ extends layout
 
 block content
     h1 Log in:
-    
+
+    each msg in successes
+        div.alert_succes
+            p= msg
+    each err in errors
+        div.alert_error 
+            p= err
+            
     form(
             action="/user/login" 
             method="POST"
@@ -22,8 +29,12 @@ block content
                 type="password"
                 name="password"
             )
+        a(href="http://localhost:3000/recovery") Forgot password?
+        br
+        br
         div.form-group
             input.btn.btn-primary(
                 type="submit"
                 value="Log in"
             )
+        

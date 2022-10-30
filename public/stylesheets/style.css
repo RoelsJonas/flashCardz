@@ -12,3 +12,23 @@ a {
   padding: 0;
   list-style: none;
 }
+
+.alert_succes,
+.alert_error {
+	width: 370px;
+	padding: 15px;
+	margin: 5px 0;
+	font-size: 14px;
+	background-color: #f34646;
+	color: white;
+	border-radius: 5px;
+	text-align: center;
+}
+
+.alert_succes {
+	background-color: #5cdd5c;
+}
+
+p{
+	margin-bottom: 0;
+}

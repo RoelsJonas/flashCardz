@@ -4,7 +4,9 @@ var router = express.Router();
 // const user_controller = require("../controllers/userController");
 
 router.get("/", function(req, res, next) {
-    res.render("signup");
+  const successes = req.flash('successes') || [];
+  const errors = req.flash('errors') || [];
+    res.render("signup",{ title: 'Flashcard | Signup', errors, successes});
   });
 
 module.exports = router;

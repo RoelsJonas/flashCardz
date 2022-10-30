@@ -6,15 +6,15 @@ const isLoggedIn = async (req, res, next) => {
     try {
       // check if auth header exists
       var cookie = req.headers.cookie;
-      console.log(cookie);
+      console.log("Cookie: " + cookie);
       if (cookie) {
         // parse token from header
-        const token = cookie.split("=")[1]; //split the header and get the token
-        console.log(token);
+        const token = cookie.split(' ')[1].split("=")[1]; //split the header and get the token
+        console.log("Token: " + token);
         if (token != "null"){
           if (token) {
             const payload = await jwt.verify(token, SECRET);
-            if (payload) {
+            if ("Payload: " +payload) {
               // store user data in request object
               console.log(payload);
               req.user = payload;

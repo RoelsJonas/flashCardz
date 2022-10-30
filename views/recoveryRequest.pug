@@ -1,0 +1,31 @@
+extends layout 
+
+
+block content
+    h1 Request Password Reset:
+
+    each msg in successes
+        div.alert_succes
+            p= msg
+    each err in errors
+        div.alert_error 
+            p= err
+            
+    form(
+            action="/recovery" 
+            method="POST"
+            )   
+        div.form-group
+            label(for="email") E-mail:
+            input.form-control(
+                id="email"
+                type="email"
+                name="email"
+                required='true'
+            )
+        div.form-group
+            input.btn.btn-primary(
+                type="submit"
+                value="Reset password"
+            )
+        

@@ -4,6 +4,13 @@ extends layout
 block content
     h1 Create account:
     
+    each msg in successes
+        div.alert_succes
+            p= msg
+    each err in errors
+        div.alert_error 
+            p= err
+
     form(
         action="/user/signup" 
         method="POST"

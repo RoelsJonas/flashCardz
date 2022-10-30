@@ -7,6 +7,8 @@ var compression = require("compression");
 var helmet = require("helmet");
 const cors = require("cors");
 const {log} = require("mercedlogger");
+const flash = require('connect-flash');
+const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -19,6 +21,7 @@ var loginRouter = require("./routes/login");
 var todoRouter = require("./controllers/todoController");
 var profileRouter = require("./routes/profile");
 var singoutRouter = require("./routes/logout");
+var recoveryRouter = require("./routes/recovery");
 
 //Instantiating MongoDB database
 // const mongoose = require("mongoose");
@@ -32,6 +35,12 @@ var app = express();
 app.use(compression());
 app.use(helmet());
 app.use(cors());
+app.use(session({
+  secret: 'codeforgeek',
+  resave: true,
+  saveUninitialized: true,
+}));
+app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -54,6 +63,7 @@ app.use("/login", loginRouter);
 app.use("/todos", todoRouter);
 app.use("/profile", profileRouter);
 app.use("/logout", singoutRouter);
+app.use("/recovery", recoveryRouter);
 
 
 // catch 404 and forward to error handler
