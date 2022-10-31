@@ -2,6 +2,7 @@ var Course = require("../models/course");
 var User = require("../models/User");
 var {isLoggedIn, state} = require("../controllers/middleware");
 const book = require("../models/book");
+const Card = require("../models/card");
 
 
 exports.course_list = function (req, res, next) {
@@ -64,3 +65,9 @@ exports.course_detail = function(req, res, next) {
         });
     });
 };
+
+exports.course_cards = function (req, res, next) {
+    Card.find({courseId: req.params.id}).exec(function (err, cards) {
+        res.status(200).json(cards);
+    });
+}

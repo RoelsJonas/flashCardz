@@ -22,6 +22,7 @@ var todoRouter = require("./controllers/todoController");
 var profileRouter = require("./routes/profile");
 var singoutRouter = require("./routes/logout");
 var recoveryRouter = require("./routes/recovery");
+var cardRouter = require("./routes/cards");
 
 //Instantiating MongoDB database
 // const mongoose = require("mongoose");
@@ -50,7 +51,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use("/public", express.static("public"));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -64,6 +66,7 @@ app.use("/todos", todoRouter);
 app.use("/profile", profileRouter);
 app.use("/logout", singoutRouter);
 app.use("/recovery", recoveryRouter);
+app.use("/cards", cardRouter)
 
 
 // catch 404 and forward to error handler

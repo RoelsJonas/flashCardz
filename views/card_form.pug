@@ -1,0 +1,26 @@
+extends layout 
+
+block content 
+    h1 New Card 
+
+    each msg in cardCreation
+        div.alert_succes
+            p= msg
+
+    form(method="POST" action='')
+        div.for-group
+            label(for='title') Title:
+            input#name.form-control(type='text',  name="title")
+        div.for-group
+            label(for='q') Question:
+            input#name.form-control(type='text',  name="q", required='true')
+        div.for-group
+            label(for='a') answer:
+            input#name.form-control(type='text',  name="a", required='true')
+        div.form-group
+            label Course:
+            div
+                select.form-control(type='select' placeholder='Select course' name='course' required='true')
+                    for course in courses
+                        option(value=course._id, selected='false') #{course.name}
+        button.btn.btn-primary(type='submit') Create card

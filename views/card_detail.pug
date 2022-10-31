@@ -1,0 +1,22 @@
+extends layout 
+
+block content
+    div(class="cardbody")
+        div(class="flashcard")
+            div(class="flashcard_container")
+                div(class="contents front")
+                    div(class="depth")
+                        div(class="top")
+                            div(class="cardtitle", id="title_front") Title 
+                            div(class="cardtext", id="front") front 
+                           
+
+                div(class="contents back")
+                    div(class="depth")
+                        div(class="top")
+                            div(class="cardtitle", id="title_back") Title 
+                            div(class="cardtext", id="back") back 
+    div
+        button.btn.btn-primary(id="btn-prev", disabled='true') Previous Question
+        button.btn.btn-primary(id="btn-next") Next Question
+    script(src='/public/scripts/card.js', )

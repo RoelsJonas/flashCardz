@@ -14,4 +14,6 @@ router.post("/create", isLoggedIn, courseController.course_create_post);
 
 router.get("/course:id", isLoggedIn, courseController.course_detail);
 
+router.get("/cards/:id", courseController.course_cards);
+
 module.exports = router;

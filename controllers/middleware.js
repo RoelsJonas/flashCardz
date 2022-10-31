@@ -10,7 +10,7 @@ const isLoggedIn = async (req, res, next) => {
       var token = "null";
       if (cookie) {
         // parse token from header
-        const cookies = cookie.split(' ');
+        const cookies = cookie.split('; ');
         console.log(cookies);
         // const token = cookie.split(' ')[0].split("=")[1]; //split the header and get the token
         cookies.forEach(cookie => {

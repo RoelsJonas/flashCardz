@@ -1,0 +1,80 @@
+:root{
+    /* ===== Colors ===== */
+
+  }
+  
+
+.cardbody{
+    background: radial-gradient(#f7fdc4, #efff64);
+}
+
+
+.flashcard{
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    transform: translate(-50%,-50%);
+    perspective: 2500px;
+}
+
+.flashcard_container{
+    width: 600px;
+    height: 400px;
+    position: absolute;
+    border-radius: 25px;
+    transition: all 1s cubic-bezier(0.175,0.885,0.320,1.275);
+    transform-style: preserve-3d;
+    box-shadow: 1px 3px 3px rgba(0, 0,0,.2);
+    background-color: #84A98C;
+}
+
+.contents{
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+}
+
+.depth{
+    transform: translateZ(50px) scale(0.95);
+    perspective: inherit;
+}
+.front{
+    /* background-image: url("/images/flashcard.png"); */
+    background-size: 100% 100%;
+    transform-style: preserve-3d;
+}
+.back{
+    transform: rotateY(180deg);
+    /* background-image: url("/images/flashcard.png"); */
+    background-size: 100% 100%;
+    transform-style: preserve-3d;
+}
+
+.top img{
+    width: 600px;
+    height: 400px;
+}
+
+.cardtext{
+    user-select: none;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    align-items: center;
+    color: black;
+}
+
+
+.cardtitle{
+    user-select: none;
+    font-size: 35px;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+}
