@@ -2,7 +2,7 @@ const { Router } = require("express"); // import router from express
 const User = require("../models/User"); // import user model
 const bcrypt = require("bcryptjs"); // import bcrypt to hash passwords
 const jwt = require("jsonwebtoken"); // import jwt to sign tokens
-const Token = require("../models/token");
+const Token = require("../models/Token");
 const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
 
