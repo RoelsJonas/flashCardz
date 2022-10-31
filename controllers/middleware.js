@@ -7,9 +7,18 @@ const isLoggedIn = async (req, res, next) => {
       // check if auth header exists
       var cookie = req.headers.cookie;
       console.log("Cookie: " + cookie);
+      var token = "null";
       if (cookie) {
         // parse token from header
-        const token = cookie.split(' ')[1].split("=")[1]; //split the header and get the token
+        const cookies = cookie.split(' ');
+        console.log(cookies);
+        // const token = cookie.split(' ')[0].split("=")[1]; //split the header and get the token
+        cookies.forEach(cookie => {
+          const temp = cookie.split('=');
+          if(temp[0] == "authorization") {
+            token = temp[1];
+          }
+        });
         console.log("Token: " + token);
         if (token != "null"){
           if (token) {
@@ -26,7 +35,10 @@ const isLoggedIn = async (req, res, next) => {
           } else {
             res.status(400).json({ error: "malformed auth header" });
           }
-        } else next();
+        } else {
+          console.log("Next");
+          next();
+        } 
       } else {
         // res.status(400).json({ error: "No authorization header" });
         res.redirect('/login');
@@ -34,6 +46,7 @@ const isLoggedIn = async (req, res, next) => {
       
       
     } catch (error) {
+      console.log("Error " + error);
       res.status(400).json({ error });
     }
   };

@@ -8,6 +8,7 @@ const { body, validationResult } = require("express-validator");
 var async = require("async");
 
 exports.index = function (req, res) {
+  console.log("Error");
   async.parallel(
     {
       book_count: function (callback) {
@@ -27,6 +28,10 @@ exports.index = function (req, res) {
       },
     },
     function (err, results) {
+      if (err) {
+        console.log("err " + err);
+        return next(err);
+      }
       res.render("index", {
         title: "Local Library Home",
         error: err,
