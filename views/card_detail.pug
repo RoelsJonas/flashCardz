@@ -7,16 +7,17 @@ block content
                 div(class="contents front")
                     div(class="depth")
                         div(class="top")
-                            div(class="cardtitle", id="title_front") Title 
-                            div(class="cardtext", id="front") front 
+                            div(class="cardtitle", id="title_front")  
+                            div(class="cardtext", id="front")  
                            
 
                 div(class="contents back")
                     div(class="depth")
                         div(class="top")
-                            div(class="cardtitle", id="title_back") Title 
-                            div(class="cardtext", id="back") back 
-    div
+                            div(class="cardtitle", id="title_back")  
+                            div(class="cardtext", id="back")  
+    div(class="div-control")
         button.btn.btn-primary(id="btn-prev", disabled='true') Previous Question
+        label(class="cardcount", id="amount-label") x/x
         button.btn.btn-primary(id="btn-next") Next Question
     script(src='/public/scripts/card.js', )

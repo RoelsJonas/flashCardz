@@ -5,7 +5,7 @@ const title_back = document.getElementById("title_back");
 const flashcard_container = flashcard.querySelector(".flashcard_container");
 const next_button = document.getElementById("btn-next");
 const prev_button = document.getElementById("btn-prev");
-console.log(document);
+const counter = document.getElementById("amount-label");
 const front = document.getElementById("front");
 const back = document.getElementById("back");
 
@@ -28,6 +28,7 @@ next_button.addEventListener('click', () => {
         index++;
         title_front.innerHTML = cards[index].title;
         title_back.innerHTML = cards[index].title;
+        setCounter();
         if(side) {
             front.innerHTML = cards[index].front;
             back.innerHTML = cards[index].back;
@@ -49,6 +50,7 @@ prev_button.addEventListener('click', () => {
         index--;
         title_front.innerHTML = cards[index].title;
         title_back.innerHTML = cards[index].title;
+        setCounter();
         if(side) {
             front.innerHTML = cards[index].front;
             back.innerHTML = cards[index].back;
@@ -110,6 +112,8 @@ function loadCards() {
             title_back.innerHTML = cards[0].title;
             front.innerHTML = cards[0].front;
             back.innerHTML = cards[0].back;
+            setCounter();
+
         }
         else{
             front.innerHTML = "No questions where found";
@@ -118,4 +122,9 @@ function loadCards() {
     }
     xhttp.open("GET", "/courses/cards/" + urlParams.get("course_id"), true);
     xhttp.send();
+}
+
+function setCounter() {
+    let count = index + 1;
+    counter.innerHTML = count + " / " + cards.length;
 }

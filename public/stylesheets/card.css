@@ -98,6 +98,20 @@
     color: black;
 }
 
+.cardcount{
+    user-select: none;
+    font-size: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+    font-family: 'Roboto', sans-serif;
+    align-items: center;
+    color: black;
+}
+
+.div-control{
+    text-align: center;
+    justify-content: center;
+}
 
 .cardtitle{
     user-select: none;
