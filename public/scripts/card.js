@@ -30,12 +30,12 @@ next_button.addEventListener('click', () => {
         title_back.innerHTML = cards[index].title;
         setCounter();
         if(side) {
-            front.innerHTML = cards[index].front;
-            back.innerHTML = cards[index].back;
+            front.innerHTML = cards[index].front.replace(/\r?\n/g, '<br />');
+            back.innerHTML = cards[index].back.replace(/\r?\n/g, '<br />');
         }
         else {
-            front.innerHTML = cards[index].back;
-            back.innerHTML = cards[index].front;
+            front.innerHTML = cards[index].back.replace(/\r?\n/g, '<br />');
+            back.innerHTML = cards[index].front.replace(/\r?\n/g, '<br />');
         }
         prev_button.disabled = false;
     }
@@ -52,12 +52,12 @@ prev_button.addEventListener('click', () => {
         title_back.innerHTML = cards[index].title;
         setCounter();
         if(side) {
-            front.innerHTML = cards[index].front;
-            back.innerHTML = cards[index].back;
+            front.innerHTML = cards[index].front.replace(/\r?\n/g, '<br />');
+            back.innerHTML = cards[index].back.replace(/\r?\n/g, '<br />');
         }
         else {
-            front.innerHTML = cards[index].back;
-            back.innerHTML = cards[index].front;
+            front.innerHTML = cards[index].back.replace(/\r?\n/g, '<br />');
+            back.innerHTML = cards[index].front.replace(/\r?\n/g, '<br />');
         }
         next_button.disabled = false;
     }
@@ -110,8 +110,8 @@ function loadCards() {
         if(cards.length > 0) {
             title_front.innerHTML = cards[0].title;
             title_back.innerHTML = cards[0].title;
-            front.innerHTML = cards[0].front;
-            back.innerHTML = cards[0].back;
+            front.innerHTML = cards[0].front.replace(/\r?\n/g, '<br />');
+            back.innerHTML = cards[0].back.replace(/\r?\n/g, '<br />');
             setCounter();
 
         }
