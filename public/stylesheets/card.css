@@ -11,21 +11,48 @@
 
 .flashcard{
     position: absolute;
-    top: 30%;
+    top: 100%;
     left: 30%;
     transform: translate(-50%,-50%);
     perspective: 2500px;
 }
 
+@media only screen and (max-width: 1080px) {
+    .flashcard {
+        transform: translate(-50%,-50%);
+        perspective: 2500px;
+        top: 100%;
+        left: 0%;
+    }
+}
+
+
+
 .flashcard_container{
-    width: 600px;
-    height: 400px;
+    width: 50vw;
+    max-width: 600px;
+    height: 25vw;
+    max-height: 400px;
     position: absolute;
     border-radius: 25px;
     transition: all 1s cubic-bezier(0.175,0.885,0.320,1.275);
     transform-style: preserve-3d;
     box-shadow: 1px 3px 3px rgba(0, 0,0,.2);
     background-color: #84A98C;
+}
+
+@media only screen and (max-width: 1600px) {
+    .flashcard_container{
+        width: 80vw;
+        max-width: 600px;
+        height: 400px;
+        position: absolute;
+        border-radius: 25px;
+        transition: all 1s cubic-bezier(0.175,0.885,0.320,1.275);
+        transform-style: preserve-3d;
+        box-shadow: 1px 3px 3px rgba(0, 0,0,.2);
+        background-color: #84A98C;
+    }
 }
 
 .contents{
