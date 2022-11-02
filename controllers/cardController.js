@@ -25,7 +25,11 @@ exports.card_create_get = function (req, res, next) {
             }
         );
     } 
-    else res.redirect("/login");
+    else{ 
+        // If not logged in, redirect to login. If succesfully logged in we redirect back to this page.
+        req.session.redirectTo = '/cards/create';
+        res.redirect("/login");
+    }
 };
 
 exports.card_create_post = [

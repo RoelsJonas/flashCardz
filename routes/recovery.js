@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
             token = await Token.create({
             userId: user._id,
             token: crypto.randomBytes(32).toString('hex')
-          });
+            });
   
         } 
   

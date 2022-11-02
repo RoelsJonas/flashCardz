@@ -85,4 +85,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//Set the .env base_url value
+// var serverUrl = req.protocol + '://' + req.get('host');
+// process.env.BASE_URL = serverUrl;
+
 module.exports = app;

@@ -15,42 +15,47 @@ router.post("/signup", async (req, res) => {
     try {
 
       // Check if this user already exists with username, if so prompt with error message
-      const user = await User.findOne({ username: req.body.username });
+      let user = await User.findOne({ username: req.body.username });
       if (!user) {
 
-        // Hash the password
-        req.body.password = await bcrypt.hash(req.body.password, 10);
-        
-        // Create a new user
-        let user = await User.create({
-          username: req.body.username,
-          firstName: req.body.firstname,
-          lastName: req.body.lastname,
-          email: req.body.email,
-          password: req.body.password
-        });
-        
-        // Create a token for mail verification
-        const token = await Token.create({
-          userId: user._id,
-          token: crypto.randomBytes(32).toString('hex')
-        });
+        // Check if this user already exists with email adres
+        user = await User.findOne({ email: req.body.email });
+        if (!user) {
+          // Hash the password
+          req.body.password = await bcrypt.hash(req.body.password, 10);
+          
+          // Create a new user
+          let user = await User.create({
+            username: req.body.username,
+            firstName: req.body.firstname,
+            lastName: req.body.lastname,
+            email: req.body.email,
+            password: req.body.password
+          });
+          
+          // Create a token for mail verification
+          const token = await Token.create({
+            userId: user._id,
+            token: crypto.randomBytes(32).toString('hex')
+          });
 
-        // Create a url and send it via mail
-        const url = `${process.env.BASE_URL}user/${user._id}/verify/${token.token}`;
-        await sendEmail(user.email, "Confirm Email","verifyEmailTemplate", {url: url, username: user.username});
-        console.log("Verification email has been sent");
-        
-        // Redirect to login page and prompt user with succes
-        req.flash("successes","An email has been sent, please verify");
-        res.redirect("/login")
-        return;
-
+          // Create a url and send it via mail
+          const url = `${process.env.BASE_URL}user/${user._id}/verify/${token.token}`;
+          await sendEmail(user.email, "Confirm Email","verifyEmailTemplate", {url: url, username: user.username});
+          console.log("Verification email has been sent");
+          
+          // Redirect to login page and prompt user with succes
+          req.flash("successes","An email has been sent, please verify");
+          res.redirect("/login");
+        }
+        else{
+          req.flash("errors","User with email "+req.body.email+" already exists");
+          res.redirect("/signup")
+        }
       }
       else{
-        req.flash("errors","User with name "+req.body.username+" already exists");
+        req.flash("errors","User with username "+req.body.username+" already exists");
         res.redirect("/signup")
-        return;
       }
     } catch (error) {
         console.log("Error detected");
@@ -102,13 +107,15 @@ try {
 
       // sign token and send it in response
       const token = await jwt.sign({ username: user.username }, SECRET);
-      console.log("Token: " + token);
-
       let options = {
           maxAge: 1000 * 60 * 15, // would expire after 15 minutes
       }
       res.cookie("authorization", token, options);
-      res.redirect('/profile');
+
+      //Redirect back to previous page, if none is selected to profile page
+      var redirectTo = req.session.redirectTo || '/profile';
+      delete req.session.redirectTo;
+      res.redirect(redirectTo);
     } 
     else {
       req.flash("errors","User doens't exist");
