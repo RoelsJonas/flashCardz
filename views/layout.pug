@@ -1,7 +1,5 @@
 doctype html
 
-
-
 html(lang='en')
   head
     title= title
@@ -12,67 +10,114 @@ html(lang='en')
     script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js", integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV", crossorigin="anonymous")
     link(rel='stylesheet', href='/public/stylesheets/style.css')
     link(rel='stylesheet', href='/public/stylesheets/card.css')
+    link(rel="stylesheet" href='/public/stylesheets/navbar.css')
+    link(href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet' crossorigin="anonymous") 
+
   body
     div(class='container-fluid')
       div(class='row')
         div(class='col-sm-2')
           block sidebar
-            ul(class='sidebar-nav')
-              li
-                a(href='/catalog') Home
-              li 
-                a(href='/courses') Courses
-              li 
-                a(href='/cards/create') Create cards
-              li
-                a(href='/catalog/books') All books
-              li
-                a(href='/catalog/authors') All authors
-              li
-                a(href='/catalog/genres') All genres
-              li
-                a(href='/catalog/bookinstances') All book-instances
-              li
-                hr
-              li
-                a(href='/catalog/author/create') Create new author
-              li
-                a(href='/catalog/genre/create') Create new genre
-              li
-                a(href='/catalog/book/create') Create new book
-              li
-                a(href='/catalog/bookinstance/create') Create new book instance (copy)
-              li
-                hr
-              li
-              unless user
-                a(href='/login') Log In | 
-                a(href='/signup') Sign Up
-              if user 
-                a(href='/profile') #{user.username} | 
-                a(href='/logout') Log Out
+            div(class='sidebar')
+              div(class='logo-details')
+                img(class='logoIcon' src='/public/media/logoFlashcards.ico')
+                .logo_name
+                  span Flashcards
+                i#btn.bx.bx-menu
+              ul.nav-list
+                li
+                  div(class='nav-list-item')
+                    a(href='/catalog')
+                      i.bx.bx-grid-alt
+                      span.links_name Dashboard
+                    span.sub-menu
+                      a(class='links_name' href='/catalog') Dashboard
+                li
+                  div(class='nav-list-item')
+                    a(href='/courses')
+                      i.bx.bx-grid-alt
+                      span.links_name Courses
+                    span.sub-menu
+                      a(class='links_name' href='/courses') Courses
+                li
+                  div(class='nav-list-item')
+                    a(href='/cards/create') 
+                      i.bx.bx-user
+                      span.links_name Cards
+                    span.sub-menu
+                      a(class='links_name' href='/cards/create') Cards
+                li
+                  div(class='nav-list-item')
+                    i.bx.bxs-chevron-down.arrow
+                    a
+                      i.bx.bx-chat
+                      span.links_name Creation
+                    ul.sub-menu
+                      li
+                        a(class='links_name' href='') Creation
+                      li
+                        a(class='closed' href='/catalog/author/create') Author
+                      li
+                        a(class='closed' href='/catalog/genre/create') Genres
+                      li
+                        a(class='closed' href='/catalog/book/create') Books
+                      li
+                        a(class='closed' href='/catalog/bookinstance/create') Bookinstances
+                li
+                  div(class='nav-list-item')
+                    i.bx.bxs-chevron-down.arrow
+                    a
+                      i.bx.bx-pie-chart-alt-2
+                      span.links_name Details
+                    ul.sub-menu
+                      li
+                        a(class='links_name' href='') Details
+                      li
+                        a(class='closed' href='/catalog/authors') Author
+                      li
+                        a(class='closed' href='/catalog/genres') Genres
+                      li
+                        a(class='closed' href='/catalog/books') Books
+                      li
+                        a(class='closed' href='/catalog/bookinstances') Bookinstances
+                unless user
+                  li(class='profile_listitem')
+                    div(class='profile-details')
+                      a(class='profile-setup' href='/login')
+                        span Log In
+                        i(class='bx bx-log-in')
+                      a(class='profile-setup' href='/signup')
+                        span Sign Up
+                        i(class='bx bx-user-plus') 
+      
+                if user    
+                  li(class='profile_listitem')
+                    div(class='profile-details')
+                      div(class='profile-content')
+                        if user.profilePicture.length == 0
+                          div(class="profileImage default")
+                            - var name = user.firstName + " " + user.lastName;
+                            - name = name.split(" ");
+                            - var initials = "";
+                            - for(let i of name){initials += i.charAt(0);}
+                            span= initials
+                        else
+                          img(class="profileImage" src=`http://localhost:3000/user/image/${user.profilePicture}` alt="profileImg")
+                      div(class='name-job')
+                        div(class='profile_name') 
+                          a(href='/profile') #{user.username}
+                        div(class='job')
+                          p #{user.firstName} #{user.lastName}
+                      a(href='/logout')
+                        i(class='bx bx-log-out')
+
+            //-   unless user
+            //-     a(href='/login') Log In | 
+            //-     a(href='/signup') Sign Up
+            //-   if user 
+            //-     a(href='/profile') #{user.username} | 
+            //-     a(href='/logout') Log Out
 
         div(class='col-sm-10')
           block content
-
-
-
-//- doctype html
-//- html
-//-   head
-//-     title= title
-//-     link(rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css")
-//-     link(rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css")
-//-     link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans')
-//-     link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
-//-   body
-//-     div(class='w3-top')
-//-       div(class="w3-bar w3-theme-d2 w3-left-align w3-large")
-//-         a(class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()")
-//-           i(class="fa fa-bars")
-//-         a(href="/" class="w3-bar-item w3-button w3-padding-large w3-theme-d4")
-//-           i(class="fa fa-home w3-margin-right") 
-//-         a(href="/courses" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News") Courses
-//-         a(href="/about" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News") About
-//-       block content
-      
+script(src='/public/scripts/navbar.js')

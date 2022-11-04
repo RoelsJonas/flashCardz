@@ -3,14 +3,18 @@ extends layout
 
 block content
     h1 Log in:
-
     each msg in successes
         div.alert_succes
             p= msg
     each err in errors
         div.alert_error 
             p= err
+    
+    - var prev_values = {};
+    if stored.length > 0
+        - prev_values = stored[0];
             
+
     form(
             action="/user/login" 
             method="POST"
@@ -21,6 +25,7 @@ block content
                 id="username"
                 type="text"
                 name="username"
+                value= prev_values.username || ""
             )
         div.form-group
             label(for="password") Password:

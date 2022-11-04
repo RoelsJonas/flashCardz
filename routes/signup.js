@@ -6,7 +6,9 @@ var router = express.Router();
 router.get("/", function(req, res, next) {
   const successes = req.flash('successes') || [];
   const errors = req.flash('errors') || [];
-    res.render("signup",{ title: 'Flashcard | Signup', errors, successes});
+  const stored = req.flash('stored') || [];
+    res.render("signup",{ title: 'Flashcard | Signup', errors, successes, stored});
   });
+  
 
 module.exports = router;

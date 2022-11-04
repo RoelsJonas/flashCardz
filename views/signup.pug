@@ -10,10 +10,15 @@ block content
     each err in errors
         div.alert_error 
             p= err
+        
+    - var prev_values = {};
+    if stored.length > 0
+        - prev_values = stored[0];
 
     form(
         action="/user/signup" 
         method="POST"
+        enctype="multipart/form-data"
         )   
         div.form-group
             label(for="username") User name:
@@ -22,6 +27,7 @@ block content
                 type="text"
                 name="username"
                 required='true'
+                value=prev_values.username || ""
             )
         div.form-group
             label(for="firstname") First name:
@@ -30,6 +36,7 @@ block content
                 type="firstname"
                 name="firstname"
                 required='true'
+                value=prev_values.firstName || ""
             )
         div.form-group
             label(for="lastname") Last name:
@@ -38,6 +45,7 @@ block content
                 type="lastname"
                 name="lastname"
                 required='true'
+                value=prev_values.lastName || ""
             )
         div.form-group
             label(for="email") E-mail:
@@ -46,6 +54,7 @@ block content
                 type="email"
                 name="email"
                 required='true'
+                value=prev_values.email || ""
             )
         div.form-group
             label(for="password") Password:
@@ -54,6 +63,25 @@ block content
                 type="password"
                 name="password"
                 required='true'
+                value=prev_values.password || ""
+            )
+        span Upload a profile picture yourself or provide a sentence which will be used to generate a Dall-E image as your avatar.  
+        div.form-group
+            label(for="profilepicture") Upload Picture:
+            input(
+                id="profilepicture"
+                type="file" 
+                name="profilepicture"
+                accept="image/png, image/jpeg"
+                value=prev_values.profilepicture || ""
+            )
+        div.form-group
+            label(for="generatesentence") Dall-E Sentence:
+            input.form-control(
+                id="generatesentence"
+                type="text" 
+                name="generatesentence"
+                value=prev_values.generatesentence || ""
             )
         div.form-group
             input.btn.btn-primary(

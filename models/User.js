@@ -6,7 +6,8 @@ var UsersSchema = new Schema({
     lastName: {type: String, required: true},
     email: {type: String, unique: true, required: true},
     password: {type: String, required: true},
-    verified: {type: Boolean, default: false}
+    verified: {type: Boolean, default: false},
+    profilePicture: [{ type: Schema.Types.ObjectId, ref: 'Image' }]
 });
 
 var User = model("User", UsersSchema);
