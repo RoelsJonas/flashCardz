@@ -42,9 +42,17 @@ exports.index = function (req, res) {
       //   "frame-ancestors-self"
       // )
       res.setHeader(
+        "Cross-Origin-Embedder-Policy",
+        "unsafe-none"
+      );
+      res.setHeader(
         "Cross-Origin-Resource-Policy",
-        "cross-origin"
-      )
+        "Cross-Origin"
+      );
+      res.setHeader(
+        "Cross-Origin-Opener-Policy",
+        "Cross-Origin"
+      );
       res.render("index", {
         title: "Local Library Home",
         error: err,

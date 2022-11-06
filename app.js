@@ -37,7 +37,10 @@ app.use(compression());
 app.use(helmet({
   contentSecurityPolicy: false,
 }));
-app.use(cors());
+
+
+
+// app.use(cors());
 app.use(session({
   secret: 'codeforgeek',
   resave: true,
