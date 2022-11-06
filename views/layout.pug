@@ -21,7 +21,7 @@ html(lang='en')
           block sidebar
             div(class='sidebar')
               div(class='logo-details')
-                img(class='logoIcon' src='/public/media/logoFlashcards.ico')
+                img(class='logoIcon' id="logo" src='/public/media/logoFlashcards.ico')
                 .logo_name
                   span Flashcards
                 i#btn.bx.bx-menu
@@ -109,7 +109,8 @@ html(lang='en')
                           a(href='/profile') #{user.username}
                         div(class='job')
                           p #{user.firstName} #{user.lastName}
-                      a(href='/logout')
+                      a(href='/logout' class="profile-details-right")
+                      
                         i(class='bx bx-log-out')
 
             //-   unless user

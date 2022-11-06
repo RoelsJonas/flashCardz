@@ -100,12 +100,21 @@ z-index:99;
 transition:all .5s ease
 }
 
+@media only screen and (max-width: 768px) {
+  .sidebar {
+    height: 78px;
+    width: 100%;
+    margin-bottom: 5%;
+  }
+}
+
 .sidebar .logo-details {
 height:60px;
 display:flex;
 align-items:center;
 position:relative
 }
+
 
 .sidebar .logo-details #btn {
 position:absolute;
@@ -133,9 +142,22 @@ opacity:0;
 transition:all .5s ease
 }
 
+@media only screen and (max-width: 768px) {
+  .sidebar .logo-details .logo_name {
+    opacity: 1;
+  }
+}
+
+
 .sidebar .nav-list {
 margin-top:20px;
 height: fit-content;
+}
+
+@media only screen and (max-width: 768px) {
+  .sidebar .nav-list {
+    scale: 0;
+  }
 }
 
 .sidebar .nav-list li .sub-menu {
@@ -261,6 +283,14 @@ transition:all 0s ease
 width:250px
 }
 
+@media only screen and (max-width: 768px) {
+  .sidebar.open  {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
 .sidebar.open .logo-details #btn {
 text-align:right
 }
@@ -274,6 +304,12 @@ opacity:1
 color:var( --text-color);
 opacity:.6;
 transition:all .3s ease;
+}
+
+@media only screen and (max-width: 768px) {
+  .sidebar.open .nav-list {
+    scale: 1;
+  }
 }
 
 .sidebar.open .nav-list li:hover .sub-menu a:hover {
@@ -435,12 +471,20 @@ opacity: 0;
   .sidebar.open .profile-details .job{
     font-size: 12px;
   }
+  @media only screen and (max-width: 768px) {
+    .sidebar.open .profile-details {  
+      width: 100%;
+      padding: -10px -50% -10px -50%;
+      bottom: -78px;
+      border-radius: 12px;
+    }
+  }
 
   .sidebar .profile_listitem{
     bottom: 0;
     position: absolute !important;
   }
-  .sidebar .profile_listite:hover{
+  .sidebar .profile_listitem:hover{
     color: var(--text-color)
   }
 
@@ -468,4 +512,21 @@ opacity: 0;
   .sidebar .profile-setup span{
     white-space:nowrap;
     display: none;
+  }
+
+
+  @media only screen and (max-width: 768px) {
+    body {
+      margin-top: 78px;
+    }
+
+    #logo {
+      scale: 1;
+      opacity: 1;
+    }
+
+    .profile-details-right {
+      padding-left: 50%;
+      padding-right: 25px !important;
+    }
   }
