@@ -32,6 +32,15 @@ exports.index = function (req, res) {
         console.log("err " + err);
         return next(err);
       }
+      // res.setHeader(
+      //   'Content-Security-Policy',
+      //   "default-src 'self' https://pagead2.googlesyndication.com/; base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self'  'https://pagead2.googlesyndication.com/' data:;object-src 'none';script-src 'self' https://pagead2.googlesyndication.com/ https://adservice.google.com https://adservice.google.be https://tpc.googlesyndication.com/; script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests; frame-src 'self' https://www.youtube.com https://youtube.com https://googleads.g.doubleclick.net/;"
+      // );
+
+      // res.setHeader(
+      //   'Content-Serurity-Policy',
+      //   "frame-ancestors-self"
+      // )
       res.render("index", {
         title: "Local Library Home",
         error: err,
