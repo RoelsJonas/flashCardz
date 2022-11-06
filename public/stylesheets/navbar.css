@@ -518,6 +518,12 @@ opacity: 0;
   @media only screen and (max-width: 768px) {
     body {
       margin-top: 78px;
+      margin-left: 0;
+      
+    }
+
+    col-sm-2 {
+      scale: 0;
     }
 
     #logo {
@@ -530,3 +536,8 @@ opacity: 0;
       padding-right: 25px !important;
     }
   }
+
+.yt_embed {
+  width: 75vw;
+  height: 40vw;
+}

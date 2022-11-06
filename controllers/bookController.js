@@ -54,7 +54,7 @@ exports.index = function (req, res) {
         "Cross-Origin"
       );
       res.render("index", {
-        title: "Local Library Home",
+        title: "Flashcards",
         error: err,
         data: results,
         user : req.user

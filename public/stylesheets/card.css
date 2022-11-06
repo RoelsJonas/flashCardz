@@ -102,11 +102,13 @@
 @media only screen and (max-width: 1600px) {
     .flashcard_container{
         width: 80vw;
+        height: 53vw;
         max-width: 600px;
-        height: 400px;
+        max-height: 400px;
         position: absolute;
         border-radius: 25px;
         transition: all 1s cubic-bezier(0.175,0.885,0.320,1.275);
+        margin-top: 100px;
         transform-style: preserve-3d;
         box-shadow: 1px 3px 3px rgba(0, 0,0,.2);
         background-color: #84A98C;
