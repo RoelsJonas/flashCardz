@@ -41,6 +41,10 @@ exports.index = function (req, res) {
       //   'Content-Serurity-Policy',
       //   "frame-ancestors-self"
       // )
+      res.setHeader(
+        "Cross-Origin-Resource-Policy",
+        "cross-origin"
+      )
       res.render("index", {
         title: "Local Library Home",
         error: err,
