@@ -1,6 +1,19 @@
 let sidebar = document.querySelector(".sidebar");
 let closeBtn = document.querySelector("#btn");
-let themes = document.querySelectorAll('[name="theme"]');
+// let themes = document.querySelectorAll('[name="theme"]');
+let themes = [document.querySelector("#light"), document.querySelector("#dark")];
+let sunIcon = document.querySelector("#sun");
+let moonIcon = document.querySelector("#moon");
+
+sunIcon.addEventListener("click", () => {
+    themes[0].checked = true;
+    storeTheme(themes[0].id);
+});
+
+moonIcon.addEventListener("click", () => {
+    themes[1].checked = true;
+    storeTheme(themes[1].id);
+});
 
 setTheme();
 

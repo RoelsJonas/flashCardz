@@ -545,7 +545,8 @@ opacity: 0;
 }
 
 
-.mode-selector {
+.sidebar .mode-selector {
+  scale: 0;
   display: flex;
   gap: 2rem;
   /* width: 100%; */
@@ -554,6 +555,23 @@ opacity: 0;
   align-items: center;
   position: absolute;
   text-align: center; 
+}
+
+.sidebar.open .mode-selector {
+  scale: 1;
+}
+
+.sidebar .mode-selector input[type="radio"] {
+  scale: 0;
+}
+
+.sidebar .theme-button {
+  scale: 0;
+}
+
+.sidebar.open .theme-button{
+  scale: 1;
+  border: var(--sidebar-color);
 }
 
 :root:has(#light:checked){
