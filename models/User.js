@@ -10,6 +10,11 @@ var UsersSchema = new Schema({
     profilePicture: [{ type: Schema.Types.ObjectId, ref: 'Image' }]
 });
 
+// Virtual for author's URL
+UsersSchema.virtual("url").get(function () {
+    // We don't use an arrow function as we'll need the this object
+    return `/user/${this._id}`;
+});
+  
 var User = model("User", UsersSchema);
-
 module.exports = User;

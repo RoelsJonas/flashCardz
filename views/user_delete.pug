@@ -1,0 +1,20 @@
+extends layout 
+
+block content
+
+    h1 Username:  #{user.username}
+
+    each msg in successes
+        div.alert_succes
+            p= msg
+    each err in errors
+        div.alert_error 
+            p= err
+        
+    p Do you really want to delete this user?
+    
+    form(method='POST' action='')
+      div.form-group
+        input#id.form-control(type='hidden',name='id', required='true', value=user._id )
+
+      button.btn.btn-primary(type='submit') Delete

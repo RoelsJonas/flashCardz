@@ -1,13 +1,12 @@
 extends layout 
 
-
 block content
     head 
         link(rel="stylesheet" href='/public/stylesheets/profilePictureForm.css')
-    body
 
-    h1 Create account:
-    
+    body
+    h1 Username:  #{user.username}
+
     each msg in successes
         div.alert_succes
             p= msg
@@ -20,19 +19,9 @@ block content
         - prev_values = stored[0];
 
     form(
-        action="/user/signup" 
         method="POST"
         enctype="multipart/form-data"
         )   
-        div.form-group
-            label(for="username") User name:
-            input.form-control(
-                id="username"
-                type="text"
-                name="username"
-                required='true'
-                value=prev_values.username || ""
-            )
         div.form-group
             label(for="firstname") First name:
             input.form-control(
@@ -40,7 +29,7 @@ block content
                 type="firstname"
                 name="firstname"
                 required='true'
-                value=prev_values.firstName || ""
+                value=prev_values.firstName || user.firstName
             )
         div.form-group
             label(for="lastname") Last name:
@@ -49,59 +38,56 @@ block content
                 type="lastname"
                 name="lastname"
                 required='true'
-                value=prev_values.lastName || ""
+                value=prev_values.lastName || user.lastName
             )
-        div.form-group
-            label(for="email") E-mail:
-            input.form-control(
-                id="email"
-                type="email"
-                name="email"
-                required='true'
-                value=prev_values.email || ""
-            )
-        div.form-group
-            label(for="password") Password:
-            input.form-control(
-                id="password"
-                type="password"
-                name="password"
-                required='true'
-            )
-        p Upload a profile picture yourself or provide a sentence which will be used to generate a Dall-E image as your avatar.  
-        br
+ 
         div(class='profile-pic')
             label.-label(for='profilepicture')
                 i(class='bx bxs-camera')
-                span Upload Image
+                span Change Image
             input(
                 id="profilepicture"
                 type="file" 
                 name="profilepicture"
                 accept="image/png, image/jpeg"
             )
-            img(id="profileImage" src=`http://localhost:3000/user/image/${process.env.DEFAULT_PF_ID}` alt="profileImg")
+            if user.profilePicture.length == 0
+                img(id="profileImage" src=`http://localhost:3000/user/image/${process.env.DEFAULT_PF_ID}` alt="profileImg")
+            else
+                img(id="profileImage" src=`http://localhost:3000/user/image/${user.profilePicture}` alt="profileImg")
+    
         br
         br
-        div.form-group
-            label(for="generatesentence") Dall-E Sentence:
-            input.form-control(
-                id="generatesentence"
-                type="text" 
-                name="generatesentence"
-                value=prev_values.generatesentence || ""
-            )
+
         div.form-group
             input.btn.btn-primary(
+                id="submitButton"
                 type="submit"
-                value="Sign Up"
+                value="Edit profile"
+                disabled 
             )
+        br
+        br
+        br
+    div.form-group
+        a.btn.btn-primary(
+            href=user.url+'/delete'
+        ) Delete user
 
     script.
-        document.addEventListener("start",setNewImage);
         document.getElementById("profilepicture").addEventListener("change", setNewImage);
 
         function setNewImage(event){
             var image = document.getElementById("profileImage");
             image.src = URL.createObjectURL(event.target.files[0]);
         }
+
+
+        var inputs = document.querySelectorAll("input");
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener("change", makeSubmittable);
+        }
+
+        function makeSubmittable(){
+            document.getElementById("submitButton").disabled = false;
+        };

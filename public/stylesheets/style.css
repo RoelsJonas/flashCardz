@@ -32,3 +32,8 @@ a {
 p{
 	margin-bottom: 0;
 }
+
+.btn-primary:disabled{
+    background-color: rgba(199,199,199,0.75);
+    border-color: rgba(199,199,199,0.75);
+}
