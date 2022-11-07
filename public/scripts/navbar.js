@@ -1,5 +1,30 @@
 let sidebar = document.querySelector(".sidebar");
 let closeBtn = document.querySelector("#btn");
+let themes = document.querySelectorAll('[name="theme"]');
+
+setTheme();
+
+themes.forEach((theme) => {
+    theme.addEventListener("click", () => {
+        storeTheme(theme.id);
+    });
+});
+
+function storeTheme(themeId) {
+    localStorage.setItem("theme", themeId);
+};
+
+function setTheme() {
+    var selected = localStorage.getItem("theme");
+    themes.forEach((theme) => {
+        if(theme.id == selected) {
+            theme.checked = true;
+        }
+    });
+}
+
+    
+
 
 closeBtn.addEventListener("click", ()=>{
     sidebar.classList.toggle("open");

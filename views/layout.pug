@@ -81,6 +81,14 @@ html(lang='en')
                         a(class='closed' href='/catalog/books') Books
                       li
                         a(class='closed' href='/catalog/bookinstances') Bookinstances
+                li 
+                  div(class='nav-list-item')
+                    form(class="mode-selector")
+                      fieldset
+                        input(type="radio", id="light", name="theme", checked)
+                        input(type="radio", id="dark", name="theme")
+
+
                 unless user
                   li(class='profile_listitem')
                     div(class='profile-details')
