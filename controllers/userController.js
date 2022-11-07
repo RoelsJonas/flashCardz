@@ -29,7 +29,6 @@ router.post("/signup", upload.single("profilepicture") , async (req, res) => {
         lastName: req.body.lastname,
         email: req.body.email,
         password: req.body.password,
-        profilePicture: req.file || "",
         generatesentence: req.body.generatesentence
       };
       if (!user) {
