@@ -6,6 +6,7 @@ const Token = require("../models/Token");
 const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
 const createProfilePicture = require("../utils/createProfilePicture");
+var {isLoggedIn, state} = require("../controllers/middleware");
 
 const multer = require('multer');
 const Image = require("../models/Image");
@@ -28,7 +29,6 @@ router.post("/signup", upload.single("profilepicture") , async (req, res) => {
         lastName: req.body.lastname,
         email: req.body.email,
         password: req.body.password,
-        profilepicture: req.body.profilePicture,
         generatesentence: req.body.generatesentence
       };
       if (!user) {
@@ -48,7 +48,7 @@ router.post("/signup", upload.single("profilepicture") , async (req, res) => {
                 data: req.file.buffer,
                 contentType: req.file.mimetype
               },
-              fileName: req.file.originalname
+              fileName: Date.now() + '-' + Math.round(Math.random() * 1E9) + "-" + req.file.originalname,
             };
           }
           //If user didn't provide a profile picture generate one yourself.
@@ -107,13 +107,12 @@ router.post("/signup", upload.single("profilepicture") , async (req, res) => {
 router.get("/image/:id/", async (req, res, next) => {
   try{
     let img = await Image.findOne({_id: req.params.id});
-    if(img){
-      res.contentType(img.file.contentType);
-      res.send(img.file.data);
+    if(!img){
+      res.status(400).json("No profile picture found!");
     }
-    else{
 
-    }
+    res.contentType(img.file.contentType);
+    res.send(img.file.data);
   }
   catch (error) {
     console.log("Error detected");
@@ -174,7 +173,7 @@ try {
       res.cookie("authorization", token, options);
 
       //Redirect back to previous page, if none is selected to profile page
-      var redirectTo = req.session.redirectTo || '/profile';
+      var redirectTo = req.session.redirectTo || user.url+"/update";
       delete req.session.redirectTo;
       res.redirect(redirectTo);
     } 
@@ -187,6 +186,115 @@ try {
     res.status(400).json({ error });
 }
 });
+
+// Get the user update profile
+router.get("/:id/update", isLoggedIn, async (req, res) =>{
+
+  var user = await User.findById(req.params.id);
+  if(user){
+    const successes = req.flash('successes') || [];
+    const errors = req.flash('errors') || [];
+    const stored = req.flash('stored') || [];
+    res.render("user_update", {user: user, title: 'Flashcards | Profile', successes, errors, stored});
+  }
+  else{
+    res.status(400).json("User not found");
+  }
+
+});
+
+// Post the update form
+router.post("/:id/update", upload.single("profilepicture"), async (req, res) => {
+  try {
+
+    //Get input
+    var input = {
+      firstName: req.body.firstname,
+      lastName: req.body.lastname,
+      _id: req.params.id,
+    };
+
+    // Get the user and its profile picture
+    var user = await User.findById(req.params.id);
+    if(!user){
+      req.flash("errors","Oops something went wrong, user not found!");
+      req.flash("stored", input);
+      res.redirect("/signup");
+      return;
+    }
+    
+    //If user provide a profile picture then make a image Object from is
+    if(req.file){
+      console.log("Picture selected")
+      // Create a Image object to add to the db and link it to the user
+      imageObject = {
+        file: {
+          data: req.file.buffer,
+          contentType: req.file.mimetype
+        },
+        fileName: Date.now() + '-' + Math.round(Math.random() * 1E9) + "-" + req.file.originalname,
+      };
+
+      //Delete the previous user profile picture
+      await Image.findByIdAndRemove(user.profilePicture);
+
+      //Upload image object to database and link it to the user
+      const uploadObject = new Image(imageObject);
+      newImage = await uploadObject.save();
+      input.profilePicture = newImage._id;
+    }
+    
+    // Update the user 
+    await User.updateOne({ _id: req.params.id}, input);
+    req.flash("successes","Your profile got updated succesfully");
+    res.redirect(user.url + "/update");    
+      
+  }catch (error) {
+      res.status(400).json({ error });
+  }
+});
+
+// Get the user update profile
+router.get("/:id/delete", isLoggedIn, async (req, res) =>{
+
+  var user = await User.findById(req.params.id);
+  if(user){
+    const successes = req.flash('successes') || [];
+    const errors = req.flash('errors') || [];
+    res.render("user_delete", {user: user, title: 'Flashcards | Delete', successes, errors});
+  }
+  else{
+    res.status(400).json("User not found");
+  }
+
+});
+
+// Post the update form
+router.post("/:id/delete", async (req, res) => {
+  try {
+
+    // Get the user and its profile picture
+    var user = await User.findById(req.params.id);
+    if(!user){
+      req.flash("errors","Oops something went wrong, user not found!");
+      req.flash("stored", input);
+      res.redirect("/signup");
+      return;
+    }
+    
+    // Delete your profile picture
+    await Image.findByIdAndRemove(user.profilePicture);
+    
+    // Delete the user 
+    await User.findByIdAndRemove(req.params.id);
+    req.flash("successes","Your profile has succesfully been deleted");
+    res.redirect("/signup");    
+      
+  }catch (error) {
+      res.status(400).json({ error });
+  }
+});
+
 
 // When opening mail verification link
 router.get("/:id/verify/:token/", async (req, res) => {

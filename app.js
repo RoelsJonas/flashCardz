@@ -19,7 +19,6 @@ var userRouter = require("./controllers/userController");
 var signupRouter = require("./routes/signup");
 var loginRouter = require("./routes/login");
 var todoRouter = require("./controllers/todoController");
-var profileRouter = require("./routes/profile");
 var singoutRouter = require("./routes/logout");
 var recoveryRouter = require("./routes/recovery");
 var cardRouter = require("./routes/cards");
@@ -68,7 +67,6 @@ app.use("/user", userRouter);
 app.use("/signup", signupRouter);
 app.use("/login", loginRouter);
 app.use("/todos", todoRouter);
-app.use("/profile", profileRouter);
 app.use("/logout", singoutRouter);
 app.use("/recovery", recoveryRouter);
 app.use("/cards", cardRouter)
@@ -89,6 +87,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 //Set the .env base_url value
 // var serverUrl = req.protocol + '://' + req.get('host');
