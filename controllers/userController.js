@@ -117,7 +117,7 @@ router.get("/image/:id/", async (req, res, next) => {
   catch (error) {
     console.log("Error detected");
     console.log(error);
-    res.status(400).json({ error });
+    // res.status(400).json({ error });
   }
 });
 
