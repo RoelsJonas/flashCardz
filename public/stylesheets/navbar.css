@@ -584,6 +584,7 @@ opacity: 0;
     border-width: 2px;
     color: var(--text-color);
     background-color: var(--textbox-background);
+    margin-bottom: 15px;
 }
     
 :root:has(#light:checked){
