@@ -575,6 +575,7 @@ opacity: 0;
 }
 
 .form-control {
+    color: var(--text-color);
     background-color: var(--textbox-background);
 }
     
@@ -602,6 +603,6 @@ opacity: 0;
 
     --text-color: #FFF;
     --text-highlight-color: #FFF;
-    --textbox-background: #E4E9F7;
+    --textbox-background: #1D1B31;
 }
 
