@@ -574,7 +574,14 @@ opacity: 0;
   border: var(--sidebar-color);
 }
 
+.form-control:focus {
+    color: var(--text-color);
+    background-color: var(--textbox-background);
+}
+
 .form-control {
+    border-radius: 100px;
+    border-width: 2px;
     color: var(--text-color);
     background-color: var(--textbox-background);
 }
