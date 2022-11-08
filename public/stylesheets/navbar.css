@@ -586,6 +586,11 @@ opacity: 0;
     background-color: var(--textbox-background);
     margin-bottom: 15px;
 }
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
     
 :root:has(#light:checked){
       --body-color: #E4E9F7;
