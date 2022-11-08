@@ -580,7 +580,7 @@ opacity: 0;
 }
 
 .form-control {
-    border-radius: 100px;
+    border-radius: 20px;
     border-width: 2px;
     color: var(--text-color);
     background-color: var(--textbox-background);
