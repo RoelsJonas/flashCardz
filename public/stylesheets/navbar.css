@@ -20,7 +20,7 @@ a{
 
 --text-color: #707070;
 --text-highlight-color: black;
-
+--textbox-background: #FFF;
 }
 
 body{
@@ -574,28 +574,34 @@ opacity: 0;
   border: var(--sidebar-color);
 }
 
+.form-control {
+    background-color: var(--textbox-background);
+}
+    
 :root:has(#light:checked){
-  --body-color: #E4E9F7;
+      --body-color: #E4E9F7;
 
-  --primary-color: #695CFE;
-  --primary-color-light: #F6F5FF;
+      --primary-color: #695CFE;
+      --primary-color-light: #F6F5FF;
 
-  --sidebar-color: #FFF;
+      --sidebar-color: #FFF;
 
-  --text-color: #707070;
-  --text-highlight-color: black;
-  --profile-color: #707070;
+      --text-color: #707070;
+      --text-highlight-color: black;
+      --profile-color: #707070;
+    --textbox-background: #FFF;
 }
 
 :root:has(#dark:checked){
-  --body-color: #222033;
+    --body-color: #222033;
 
---primary-color: #FFF;
---primary-color-light: #1d1b31;
+    --primary-color: #FFF;
+    --primary-color-light: #1d1b31;
 
---sidebar-color: #11101d;
+    --sidebar-color: #11101d;
 
---text-color: #FFF;
---text-highlight-color: #FFF;
+    --text-color: #FFF;
+    --text-highlight-color: #FFF;
+    --textbox-background: #E4E9F7;
 }
 
