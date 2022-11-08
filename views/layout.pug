@@ -107,9 +107,9 @@ html(lang='en')
                       div(class='profile-details')
                         div(class='profile-content')
                           if user.profilePicture.length == 0
-                            img(class="profileImage" src=`http://localhost:3000/user/image/${process.env.DEFAULT_PF_ID}` alt="profileImg")
+                            img(class="profileImage" src=`${process.env.BASE_URL}user/image/${process.env.DEFAULT_PF_ID}` alt="profileImg")
                           else
-                            img(class="profileImage" src=`http://localhost:3000/user/image/${user.profilePicture}` alt="profileImg")
+                            img(class="profileImage" src=`${process.env.BASE_URL}user/image/${user.profilePicture}` alt="profileImg")
                         div(class='name-job')
                           div(class='profile_name') 
                             p #{user.username}

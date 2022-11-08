@@ -52,9 +52,9 @@ block content
                 accept="image/png, image/jpeg"
             )
             if user.profilePicture.length == 0
-                img(id="profileImage" src=`http://localhost:3000/user/image/${process.env.DEFAULT_PF_ID}` alt="profileImg")
+                img(id="profileImage" src=`${process.env.BASE_URL}user/image/${process.env.DEFAULT_PF_ID}` alt="profileImg")
             else
-                img(id="profileImage" src=`http://localhost:3000/user/image/${user.profilePicture}` alt="profileImg")
+                img(id="profileImage" src=`${process.env.BASE_URL}user/image/${user.profilePicture}` alt="profileImg")
     
         br
         br
