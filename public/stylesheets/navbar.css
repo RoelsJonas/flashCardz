@@ -588,8 +588,13 @@ opacity: 0;
 }
 
 .btn-primary {
-    background-color: var(--primary-color);
-    color: var(--text-color);
+    background-color: #695CFE;
+    color: #FFF;
+}
+
+.btn-primary:hover {
+    background-color: #F6F5FF;
+    color: black;
 }
     
 :root:has(#light:checked){
