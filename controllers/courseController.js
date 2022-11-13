@@ -1,7 +1,6 @@
 var Course = require("../models/course");
 var User = require("../models/User");
 var {isLoggedIn, state} = require("../controllers/middleware");
-const book = require("../models/book");
 const Card = require("../models/card");
 
 

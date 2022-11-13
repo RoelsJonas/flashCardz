@@ -5,7 +5,6 @@ var User = require("../models/User");
 const flash = require("flash");
 
 const { body, validationResult } = require("express-validator");
-const { author_create_post } = require("./authorController");
 
 exports.card_create_get = function (req, res, next) {
     const cardCreation = req.flash("cardCreation") || [];

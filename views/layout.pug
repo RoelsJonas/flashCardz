@@ -6,11 +6,12 @@ html(lang='en')
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css", integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z", crossorigin="anonymous")
+    link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap" rel="stylesheet")
     script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js", integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj", crossorigin="anonymous")
     script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js", integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV", crossorigin="anonymous")
     link(rel='stylesheet', href='/public/stylesheets/style.css')
-    link(rel='stylesheet', href='/public/stylesheets/card.css')
     link(rel="stylesheet" href='/public/stylesheets/navbar.css')
+    link(rel="stylesheet" href='/public/stylesheets/cookies.css')
     link(href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet' crossorigin="anonymous") 
     script(async, src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1510721999692361", crossorigin="anonymous")
 
@@ -36,51 +37,34 @@ html(lang='en')
                 li
                   div(class='nav-list-item')
                     a(href='/courses')
-                      i.bx.bx-grid-alt
+                      i.bx.bx-map-alt
                       span.links_name Courses
                     span.sub-menu
                       a(class='links_name' href='/courses') Courses
                 li
                   div(class='nav-list-item')
                     a(href='/cards/create') 
-                      i.bx.bx-user
+                      i.bx.bx-credit-card-front
                       span.links_name Cards
                     span.sub-menu
                       a(class='links_name' href='/cards/create') Cards
-                li
-                  div(class='nav-list-item')
-                    i.bx.bxs-chevron-down.arrow
-                    a
-                      i.bx.bx-chat
-                      span.links_name Creation
-                    ul.sub-menu
-                      li
-                        a(class='links_name' href='') Creation
-                      li
-                        a(class='closed' href='/catalog/author/create') Author
-                      li
-                        a(class='closed' href='/catalog/genre/create') Genres
-                      li
-                        a(class='closed' href='/catalog/book/create') Books
-                      li
-                        a(class='closed' href='/catalog/bookinstance/create') Bookinstances
-                li
-                  div(class='nav-list-item')
-                    i.bx.bxs-chevron-down.arrow
-                    a
-                      i.bx.bx-pie-chart-alt-2
-                      span.links_name Details
-                    ul.sub-menu
-                      li
-                        a(class='links_name' href='') Details
-                      li
-                        a(class='closed' href='/catalog/authors') Author
-                      li
-                        a(class='closed' href='/catalog/genres') Genres
-                      li
-                        a(class='closed' href='/catalog/books') Books
-                      li
-                        a(class='closed' href='/catalog/bookinstances') Bookinstances
+                //- li
+                //-   div(class='nav-list-item')
+                //-     i.bx.bxs-chevron-down.arrow
+                //-     a
+                //-       i.bx.bx-chat
+                //-       span.links_name Creation
+                //-     ul.sub-menu
+                //-       li
+                //-         a(class='links_name' href='') Creation
+                //-       li
+                //-         a(class='closed' href='/catalog/author/create') Author
+                //-       li
+                //-         a(class='closed' href='/catalog/genre/create') Genres
+                //-       li
+                //-         a(class='closed' href='/catalog/book/create') Books
+                //-       li
+                //-         a(class='closed' href='/catalog/bookinstance/create') Bookinstances
                 li 
                   div(class='nav-list-item')
                     i.bx.bx-sun(id="sun")
@@ -119,5 +103,49 @@ html(lang='en')
                           i(class='bx bx-log-out')
 
         div(class='col-sm-10')
+
+
+          div(class="cookie-banner hidden")
+            div(class="cookie-banner-inside")
+              div(class="contents front")
+                div(class="depth")
+                    a(class="cookie-banner-close")
+                      i(class="bx bx-x bx-sm")
+                    a(class="cookie-banner-edit")
+                      i(class="bx bxs-pencil bx-sm")
+                    img(src='/public/media/cookie1.png' alt='Http Cookie' class='cookie-banner-image')
+                    p(class="cookie-banner-title") Cookies
+                    p(class="cookie-banner-text") We use cookies for improving your user experience... <br> For more information view our <br> #[a(target="_blank" href="/public/media/cookiePolicy.png" class="cookie-banner-policy") Cookie Policy ]
+                    button(class="btn cookie-banner-accept" type="submit" form="cookieForm") That&apos;s fine!
+                    a(class="cookie-banner-decline") Nah!
+
+              div(class="contents back")
+                div(class="depth")
+                  a(class="cookie-banner-close")
+                    i(class="bx bx-x bx-sm")
+                  a(class="cookie-banner-edit")
+                    i(class="bx bx-arrow-back bx-sm")
+                  p(class="cookie-banner-title") Adjust Cookies
+                  p(class="cookie-banner-text") Adjust the cookies you want to share <br> Afterwards go back to the other side
+                  form(
+                  id="cookieForm"
+                  action="user/setcookie" 
+                  method="POST"
+                  )   
+                    div.centred
+                      label(for="marketing") Marketing
+                      input(type="checkbox" id="marketing" name="marketing" checked) 
+                    div.centred
+                      label(for="analythics") Analythics
+                      input(type="checkbox" id="analythics" name="analythics" checked) 
+                    div.centred
+                      label(for="spam") Spam
+                      input(type="checkbox" id="spam" name="spam" checked)                       
+                      
+
+      
+
           block content
+
 script(src='/public/scripts/navbar.js')
+script(src='/public/scripts/cookies.js')

@@ -331,4 +331,16 @@ router.get("/:id/verify/:token/", async (req, res) => {
 	}
 });
 
+router.post('/setcookie', (req, res, next) => {
+
+  var value = {
+    marketingCookies : req.body.marketing == "on" ? true : false,
+    analythicsCookies : req.body.analythics == "on" ? true : false,
+    spamCookies : req.body.spam == "on" ? true : false,
+  }
+
+  res.cookie('cookiePreferences', value, { maxAge: 1000 * 60 * 60 * 24 * 180} ).json({ value });
+});
+
+
 module.exports = router;

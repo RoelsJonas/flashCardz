@@ -1,0 +1,186 @@
+.cookie-banner{
+    z-index: 10;
+	top: 50%;
+    left: 50%;
+	transform: translate(-50%,-50%);
+	transition: all 0.4s cubic-bezier(0.175,0.885,0.320,1.275);;
+	position: fixed;
+
+    perspective: 2500px;
+}
+  
+.cookie-banner.hidden{
+	transform: translate(-50%,-50%) scale(0);
+	transition: all 0.4s cubic-bezier(.3,-0.87,.51,.73);
+	z-index: -1;
+}
+
+.cookie-banner-inside{
+    max-width: 300px;
+    width: 500px;
+    height: 350px;
+	border-radius: 10px;
+
+    background-color: var(--sidebar-color);
+
+    transition: all 1s cubic-bezier(0.175,0.885,0.320,1.275);
+    transform-style: preserve-3d;
+    box-shadow: 1px 3px 3px rgba(0, 0,0,.2);
+
+    transform: rotateX(-1deg) rotateY(1deg); /*This removes the weird blurry effect */
+}
+
+.cookie-banner-close{
+	position: absolute;
+    right:0;
+	height: 25px;
+	color: var(--text-color);
+	transform: rotate(0);
+	transition: all 0.2s ease;
+}
+.cookie-banner-edit{
+	margin-right: auto;
+	height: 25px;
+    scale: 0.75;
+	color: var(--text-color);
+	transform: rotate(0);
+	transition: all 0.2s ease;
+}
+
+.cookie-banner-close:hover, .cookie-banner-edit:hover{
+	color: var(--text-color);
+	transform: rotate(90deg);
+	transition: all 0.2s ease;
+}
+
+.cookie-banner-image{
+	height: 60px;
+    scale: 1;
+    transform: translateY(0px);
+    opacity: 1;
+    user-select: none;
+    transition: transform 1s cubic-bezier(0.175,0.885,0.320,1.275), opacity 1s ease;
+}
+
+.cookie-banner-image.reset{
+	scale: 0;
+    transform: translateY(-100px);
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.175,0.885,0.320,1.275);
+}
+
+.cookie-banner-accept{
+    font-family: "Poppins", sans-serif;
+	background-color: var(--primary-color);
+	border-color: var(--primary-color);
+	color: var(--sidebar-color);;
+	margin-left: 10px;
+	transition: all 0.2s ease;
+}
+
+.cookie-banner-accept:hover{
+	color: var(--sidebar-color);;
+	margin-left: 10px;
+	transform: scale(1.025);
+	transition: all 0.2s ease;
+}
+
+.cookie-banner-decline{
+    margin-top: 5px;
+}
+.cookie-banner-decline:hover{
+    text-decoration: none;
+    color: var(--text-color)
+}
+
+
+
+.cookie-banner-text{
+	color: var(--text-color);
+	font-family: "Poppins", sans-serif;
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+
+.cookie-banner-title{
+    color: var(--text-color);
+	font-family: "Poppins", sans-serif;
+	margin-top: 15px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.cookie-banner-policy{
+    font-weight: 500;
+}
+
+.contents{
+    backface-visibility: hidden;
+    position: absolute;
+    padding: 12px 16px;
+    top: 0;
+    left: 0;
+}
+
+.depth{
+    display: flex;
+	flex-direction: column;
+	text-align: center;
+	align-items: center;
+
+    transform: translateZ(50px) scale(0.95);
+    perspective: inherit;
+    width: 275px;
+}
+.front{
+    background-size: 100% 100%;
+    transform-style: preserve-3d;
+}
+.back{
+    transform: rotateY(180deg);
+    background-size: 100% 100%;
+    transform-style: preserve-3d;
+}
+
+input[type="checkbox"] {
+    position: relative;
+    appearance: none;
+    width: 50px;
+    height: 25px;
+    background-color: white;
+    border-radius: 50px;
+    box-shadow: inset 0 0 5px rgba(0, 0,0,.2);
+    cursor: pointer;
+    transition: 0.4s;
+}
+input[type="checkbox"]:checked{
+    background: var(--primary-color);
+}
+input[type="checkbox"]::after {
+    position: absolute;
+    content: "";
+    width: 25px;
+    height: 25px;
+    top: 0;
+    left: 0;
+    background: white;
+    border-radius: 50%;
+    box-shadow: inset 0 0 5px rgba(0, 0,0,.2);
+    transform: scale(1.1);
+    transition: 0.4s;
+    background-color: "/public/media/cookie1.png";
+
+}
+input:checked[type="checkbox"]::after {
+    left:50%;
+}
+
+label{
+    font-family: "Poppins", sans-serif;
+}
+    
+.centred{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}

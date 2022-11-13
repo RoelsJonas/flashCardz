@@ -1,23 +1,27 @@
 extends layout 
 
 block content
-    div(class="cardbody")
-        div(class="flashcard")
-            div(class="flashcard_container")
-                div(class="contents front")
-                    div(class="depth")
-                        div(class="top")
-                            div(class="cardtitle", id="title_front")  
-                            div(class="cardtext", id="front")  
-                           
+    head
+        link(rel="stylesheet" href='/public/stylesheets/card.css')
+    body
 
-                div(class="contents back")
-                    div(class="depth")
-                        div(class="top")
-                            div(class="cardtitle", id="title_back")  
-                            div(class="cardtext", id="back")  
-    div(class="div-control")
-        button.btn.btn-primary(id="btn-prev", disabled='true') Previous
-        label(class="cardcount", id="amount-label") x/x
-        button.btn.btn-primary(id="btn-next") Next
+        div(class="cardbody")
+            div(class="flashcard")
+                div(class="flashcard_container")
+                    div(class="contents front")
+                        div(class="depth")
+                            div(class="top")
+                                div(class="cardtitle", id="title_front")  
+                                div(class="cardtext", id="front")  
+                            
+
+                    div(class="contents back")
+                        div(class="depth")
+                            div(class="top")
+                                div(class="cardtitle", id="title_back")  
+                                div(class="cardtext", id="back")  
+        div(class="div-control")
+            button.btn.btn-primary(id="btn-prev", disabled='true') Previous
+            label(class="cardcount", id="amount-label") x/x
+            button.btn.btn-primary(id="btn-next") Next
     script(src='/public/scripts/card.js', )

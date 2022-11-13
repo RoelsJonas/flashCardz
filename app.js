@@ -13,8 +13,6 @@ const session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var coursesRouter = require('./routes/courses');
-var aboutRouter = require('./routes/about');
-var catalogRouter = require("./routes/catalog");
 var userRouter = require("./controllers/userController");
 var signupRouter = require("./routes/signup");
 var loginRouter = require("./routes/login");
@@ -61,8 +59,6 @@ app.use("/public", express.static("public"));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/courses', coursesRouter);
-app.use('/about', aboutRouter);
-app.use("/catalog", catalogRouter);
 app.use("/user", userRouter);
 app.use("/signup", signupRouter);
 app.use("/login", loginRouter);
@@ -87,6 +83,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 
 //Set the .env base_url value
