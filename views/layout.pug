@@ -67,8 +67,10 @@ html(lang='en')
                 //-         a(class='closed' href='/catalog/bookinstance/create') Bookinstances
                 li 
                   div(class='nav-list-item')
-                    i.bx.bx-sun(id="sun")
-                    i.bx.bx-moon(id="moon")
+                    div(class="div-mode-selector")
+                      i.bx.bx-sun(id="sun", class="themselectorIcon")
+                    div(class="div-mode-selector")
+                      i.bx.bx-moon(id="moon", class="themselectorIcon")
                     form(class="mode-selector")
                       fieldset
                         input(type="radio", id="light", name="theme", checked)

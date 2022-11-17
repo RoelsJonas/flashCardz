@@ -2,6 +2,9 @@ extends layout
 
 block content 
     h1 New Course 
+    if(err)
+        div.alert_succes
+            p= err
     form(method='POST' action='')
         div.for-group
             label(for='name') Name:

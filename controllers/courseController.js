@@ -29,19 +29,23 @@ exports.course_create_get = function (req, res, next) {
 };
 
 exports.course_create_post = function(req, res, next){
-    User.findOne({ 'username': req.user.username}, '_id', function(err, author) {
-        var course = new Course({
-            name: req.body.name,
-            description: req.body.description,
-            code: req.body.code,
-            school: req.body.school,
-            creator: author
+    try{
+        User.findOne({ 'username': req.user.username}, '_id', function(err, author) {
+            var course = new Course({
+                name: req.body.name,
+                description: req.body.description,
+                code: req.body.code,
+                school: req.body.school,
+                creator: author
+            });
+            course.save(function (err){
+                if (err) return next(err);
+                res.redirect('/courses');
+            });
         });
-        course.save(function (err){
-            if (err) return next(err);
-            res.redirect('/courses');
-        });
-    });
+    } catch {
+        res.render("course_form", {user: req.user, err: "Error creating course"});
+    }
 };
 
 exports.course_detail = function(req, res, next) {
