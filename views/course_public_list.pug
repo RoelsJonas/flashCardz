@@ -1,0 +1,60 @@
+extends layout
+
+block content
+    head
+        link(rel='stylesheet', href='/public/stylesheets/coursesList.css')
+    body
+        h1 Courses:
+        
+        div(class="coursesNavbar")
+            a(href='personal') Your courses
+            a(href='public') Public courses
+            div(class="animation start-publiccourses")
+
+        form(method='GET' action='')
+            div.form-group
+            input.form-control(type='text', placeholder='Search for course', name='searchTerm', required='true')
+ 
+        hr
+        div(class="publicCourses")
+            h4 Public courses
+            ul(class="courseList")
+                each course in course_list
+                    li(class="courseItem")
+                        a(href=course.url, class="courseLink") 
+                            div(class="courseBox")
+                                span(class="courseName") #{course.name} 
+                                span(class="courseSchool") 
+                                    if course.school != ""
+                                        |    #{course.school}
+                                ul(class="courseDetails")
+                                    li
+                                        i(class="bx bxs-collection")
+                                        span #{course.numCards}
+                                    li
+                                        i(class="bx bxs-star")
+                                        span #{course.numFavorites}
+                                    li
+                                        i(class="fa-solid fa-eye")
+                                        span #{course.numVisits}
+
+                                div(class="courseFavorite" data-path=`${course._id}/${user._id}` onclick="favorite(this)")
+                                    if favorites.find(f => f.course.equals(course._id))
+                                        i(class="bx bxs-star")
+                                    else 
+                                        i(class="bx bx-star")
+                else 
+                    li No public courses yet
+
+            div(class="courseShowMore")
+                span Show More 
+                i(class="bx bx-chevron-down")
+
+    script(src='/public/scripts/courseFavorite.js')
+    script(src='/public/scripts/courseAddition.js')
+
+    <!-- This script is used to pass variables from this pug file to the courseAddition javascript file -->
+    script(type="text/javascript").
+        var count = "#{count}";
+        var user = !{JSON.stringify(user)};
+        var favorites = !{JSON.stringify(favorites)};

@@ -1,0 +1,103 @@
+extends layout
+
+block content
+    head
+        link(rel='stylesheet', href='/public/stylesheets/coursesList.css')
+    body
+        h1 Courses:
+        
+        div(class="coursesNavbar")
+            a(href='personal') Your courses
+            a(href='public') Public courses
+            div(class="animation start-personalcourses")
+
+        //- form(method='GET' action='')
+        //-     div.form-group
+        //-     input.form-control(type='text', placeholder='Search for course', name='searchTerm', required='true')
+
+        hr
+        div(class="recentlyCourses")
+            h4 Recently visited
+            ul(class="courseList")
+                each recent in recents
+                    li(class="courseItem")
+                        a(href=recent.course.url, class="courseLink")
+                            div(class="courseBox")
+                                span(class="courseName") #{recent.course.name} 
+                                span(class="courseSchool") 
+                                    if recent.course.school != ""
+                                        |    #{recent.course.school} 
+                                ul(class="courseDetails")
+                                    li
+                                        i(class="bx bxs-collection")
+                                        span #{recent.course.numCards}
+                                    li
+                                        i(class="bx bxs-star")
+                                        span #{recent.course.numFavorites}
+                                    li
+                                        i(class="fa-solid fa-eye")
+                                        span #{recent.course.numVisits}
+                else 
+                    li You have no recently visited courses yet 
+
+        hr
+        div(class="favoriteCourses")
+            h4 Favorited courses
+            ul(class="courseList")
+                each favorite in favorites
+                    li(class="courseItem")
+                        a(href=favorite.course.url, class="courseLink")
+                            div(class="courseBox")
+                                span(class="courseName") #{favorite.course.name} 
+                                span(class="courseSchool") 
+                                    if favorite.course.school != ""
+                                        |    #{favorite.course.school} 
+                                ul(class="courseDetails")
+                                    li
+                                        i(class="bx bxs-collection")
+                                        span #{favorite.course.numCards}
+                                    li
+                                        i(class="bx bxs-star")
+                                        span #{favorite.course.numFavorites}
+                                    li
+                                        i(class="fa-solid fa-eye")
+                                        span #{favorite.course.numVisits}
+                                div(class="courseFavorite" data-path=`${favorite.course._id}/${user._id}` onclick="favorite(this)")
+                                    i(class="bx bxs-star")  
+                
+                li(class="courseItem")
+                    a(href='/courses/public', class="courseLink createCourse") 
+                        div(class="courseBox createCourse")
+                            i(class="bx bx-plus createCourseImage")
+                            span(class="courseName createCourse") Explore new courses
+
+        hr
+        div(class="privateCourses")
+            h4 Your courses
+            ul(class="courseList")
+                each course in course_list
+                    li(class="courseItem")
+                        a(href=course.url, class="courseLink")
+                            div(class="courseBox")
+                                span(class="courseName") #{course.name} 
+                                span(class="courseSchool") 
+                                    if course.school != ""
+                                        |    #{course.school} 
+                                ul(class="courseDetails")
+                                    li
+                                        i(class="bx bxs-collection")
+                                        span #{course.numCards}
+                                    li
+                                        i(class="bx bxs-star")
+                                        span #{course.numFavorites}
+                                    li
+                                        i(class="fa-solid fa-eye")
+                                        span #{course.numVisits}
+                                        
+                li(class="courseItem")
+                    a(href='/courses/create', class="courseLink createCourse") 
+                        div(class="courseBox createCourse")
+                            i(class="bx bx-plus createCourseImage")
+                            span(class="courseName createCourse") Create new course
+
+    script(src='/public/scripts/courseFavorite.js').

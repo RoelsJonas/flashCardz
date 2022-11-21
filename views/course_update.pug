@@ -1,0 +1,37 @@
+extends layout 
+
+block content
+    h1 Edit course
+    hr
+
+    each msg in successes
+        div.alert_succes
+            p= msg
+    each err in errors
+        div.alert_error 
+            p= err
+        
+    form(
+        method="POST"
+        )   
+        div.for-group
+            label(for='name') Name:
+            input#name.form-control(type='text', placeholder="Name of the course", name="name", required='true', value=course.name || "")
+        div.for-group
+            label(for='description') Description:
+            input#Descroption.form-control(type='text', placeholder="Description of the course (optional)", name="description", value=course.description || "")
+        div.for-group
+            label(for='code') Code:
+            input#code.form-control(type='text', placeholder="ECTS Code of the course (optional)", name="code", value=course.code || "")
+        div.for-group
+            label(for='school') School:
+            input#school.form-control(type='text', placeholder="Name of the school the course is given at (optional)", name="school", value=course.school || "")
+        div.for-group
+            label(for='public') Public course:
+            input#public.form-control(type='checkbox', name="public", checked=(course.public === true))
+        div.form-group
+            input.btn.btn-primary(
+                id="submitButton"
+                type="submit"
+                value="Edit course"
+            )

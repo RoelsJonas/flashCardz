@@ -1,0 +1,13 @@
+extends layout 
+
+block content
+
+    h1 Course:  #{course.name}
+
+    p Do you really want to delete this course?
+    
+    form(method='POST' action='')
+      div.form-group
+        input#id.form-control(type='hidden',name='id', required='true', value=course._id )
+
+      button.btn.btn-primary(type='submit') Delete

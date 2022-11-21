@@ -195,13 +195,46 @@ router.get("/:id/update", isLoggedIn, async (req, res) =>{
     const successes = req.flash('successes') || [];
     const errors = req.flash('errors') || [];
     const stored = req.flash('stored') || [];
-    res.render("user_update", {user: user, title: 'Flashcards | Profile', successes, errors, stored});
+    res.render("user_update", {user: user, title: 'Flashcards | Settings', successes, errors, stored});
   }
   else{
     res.status(400).json("User not found");
   }
 
 });
+
+// Get the user update profile
+router.get("/:id/general", isLoggedIn, async (req, res) =>{
+
+  var user = await User.findById(req.params.id);
+  if(user){
+    const successes = req.flash('successes') || [];
+    const errors = req.flash('errors') || [];
+    const stored = req.flash('stored') || [];
+    res.render("user_general_settings", {user: user, title: 'Flashcards | Settings', successes, errors, stored});
+  }
+  else{
+    res.status(400).json("User not found");
+  }
+
+});
+
+// Get the user update profile
+router.get("/:id/advanced", isLoggedIn, async (req, res) =>{
+
+  var user = await User.findById(req.params.id);
+  if(user){
+    const successes = req.flash('successes') || [];
+    const errors = req.flash('errors') || [];
+    const stored = req.flash('stored') || [];
+    res.render("user_advanced_settings", {user: user, title: 'Flashcards | Settings', successes, errors, stored});
+  }
+  else{
+    res.status(400).json("User not found");
+  }
+
+});
+
 
 // Post the update form
 router.post("/:id/update", upload.single("profilepicture"), async (req, res) => {

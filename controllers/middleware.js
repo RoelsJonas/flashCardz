@@ -7,12 +7,10 @@ const isLoggedIn = async (req, res, next) => {
     try {
       // check if auth header exists
       var cookie = req.headers.cookie;
-      console.log("Cookie: " + cookie);
       var token = "null";
       if (cookie) {
         // parse token from header
         const cookies = cookie.split('; ');
-        console.log(cookies);
         // const token = cookie.split(' ')[0].split("=")[1]; //split the header and get the token
         cookies.forEach(cookie => {
           const temp = cookie.split('=');
@@ -21,7 +19,6 @@ const isLoggedIn = async (req, res, next) => {
             return;
           }
         });
-        console.log("Token: " + token);
         if (token != "null"){
           if (token) {
             const payload = await jwt.verify(token, SECRET);
@@ -43,7 +40,6 @@ const isLoggedIn = async (req, res, next) => {
             res.status(400).json({ error: "malformed auth header" });
           }
         } else {
-          console.log("Next");
           next();
         } 
       } else {

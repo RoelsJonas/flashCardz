@@ -142,7 +142,7 @@
     transform-style: preserve-3d;
 }
 
-input[type="checkbox"] {
+.cookieCheckbox{
     position: relative;
     appearance: none;
     width: 50px;
@@ -153,10 +153,10 @@ input[type="checkbox"] {
     cursor: pointer;
     transition: 0.4s;
 }
-input[type="checkbox"]:checked{
+.cookieCheckbox:checked{
     background: var(--primary-color);
 }
-input[type="checkbox"]::after {
+.cookieCheckbox::after {
     position: absolute;
     content: "";
     width: 25px;
@@ -171,12 +171,8 @@ input[type="checkbox"]::after {
     background-color: "/public/media/cookie1.png";
 
 }
-input:checked[type="checkbox"]::after {
+.cookieCheckbox:checked::after {
     left:50%;
-}
-
-label{
-    font-family: "Poppins", sans-serif;
 }
     
 .centred{

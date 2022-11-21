@@ -1,6 +1,17 @@
 extends layout 
 
 block content 
+    each msg in successes
+        div.alert_succes
+            p= msg
+    each err in errors
+        div.alert_error 
+            p= err
+    
+    - var prev_values = {};
+    if stored.length > 0
+        - prev_values = stored[0];
+
     h1 New Course 
     if(err)
         div.alert_succes
@@ -18,4 +29,7 @@ block content
         div.for-group
             label(for='school') School:
             input#school.form-control(type='text', placeholder="Name of the school the course is given at (optional)", name="school")
+        div.for-group
+            label(for='public') Public course:
+            input#public.form-control(type='checkbox', name="public")
         button.btn.btn-primary(type='submit') Create course

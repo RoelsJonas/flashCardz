@@ -15,14 +15,15 @@ html(lang='en')
     link(href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet' crossorigin="anonymous") 
     script(async, src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1510721999692361", crossorigin="anonymous")
 
-  body
+  body.preload
     div(class='container-fluid')
       div(class='row')
         div(class='col-sm-2')
           block sidebar
             div(class='sidebar')
               div(class='logo-details')
-                img(class='logoIcon' id="logo" src='/public/media/logoFlashcards.ico')
+                <!--img(class='logoIcon' id="logo" src='/public/media/logoFlashcards.ico')-->
+                i(class="bx bxs-collection")
                 .logo_name
                   span Flashcards
                 i#btn.bx.bx-menu
@@ -34,13 +35,22 @@ html(lang='en')
                       span.links_name Dashboard
                     span.sub-menu
                       a(class='links_name' href='/') Dashboard
+          
                 li
                   div(class='nav-list-item')
-                    a(href='/courses')
-                      i.bx.bx-map-alt
+                    i.bx.bxs-chevron-down.arrow
+                    a(href="/courses/personal")
+                      i(class="fa-solid fa-graduation-cap")
                       span.links_name Courses
-                    span.sub-menu
-                      a(class='links_name' href='/courses') Courses
+                    ul.sub-menu
+                      li
+                        a(class='links_name' href='/courses/personal') Courses
+                      li
+                        a(class='closed' href='/courses/personal') Personal
+                      li
+                        a(class='closed' href='/courses/public') Public
+                      
+                  
                 li
                   div(class='nav-list-item')
                     a(href='/cards/create') 
@@ -118,7 +128,7 @@ html(lang='en')
                     img(src='/public/media/cookie1.png' alt='Http Cookie' class='cookie-banner-image')
                     p(class="cookie-banner-title") Cookies
                     p(class="cookie-banner-text") We use cookies for improving your user experience... <br> For more information view our <br> #[a(target="_blank" href="/public/media/cookiePolicy.png" class="cookie-banner-policy") Cookie Policy ]
-                    button(class="btn cookie-banner-accept" type="submit" form="cookieForm") That&apos;s fine!
+                    button(class="btn cookie-banner-accept") That&apos;s fine!
                     a(class="cookie-banner-decline") Nah!
 
               div(class="contents back")
@@ -136,13 +146,13 @@ html(lang='en')
                   )   
                     div.centred
                       label(for="marketing") Marketing
-                      input(type="checkbox" id="marketing" name="marketing" checked) 
+                      input(type="checkbox" class="cookieCheckbox" id="marketing" name="marketing" checked) 
                     div.centred
                       label(for="analythics") Analythics
-                      input(type="checkbox" id="analythics" name="analythics" checked) 
+                      input(type="checkbox" class="cookieCheckbox" id="analythics" name="analythics" checked) 
                     div.centred
                       label(for="spam") Spam
-                      input(type="checkbox" id="spam" name="spam" checked)                       
+                      input(type="checkbox" class="cookieCheckbox" id="spam" name="spam" checked)                       
                       
 
       
@@ -151,3 +161,4 @@ html(lang='en')
 
 script(src='/public/scripts/navbar.js')
 script(src='/public/scripts/cookies.js')
+script(src="https://kit.fontawesome.com/0d56c33fff.js" crossorigin="anonymous")

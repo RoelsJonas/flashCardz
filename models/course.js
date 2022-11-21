@@ -5,7 +5,11 @@ const CourseSchema = new Schema({
     description: {type: String, required: false},
     code: {type: String, required: false},
     school: {type: String, required: false},
-    creator: {type: Schema.Types.ObjectId, ref:"User", required: true}
+    creator: {type: Schema.Types.ObjectId, ref:"User", required: true},
+    public: {type: Boolean, default: true},
+    numCards: {type: Number, default: 0},
+    numFavorites: {type: Number, default: 0},
+    numVisits: {type: Number, default: 0}
 });
 
 CourseSchema.virtual("url").get(function () {

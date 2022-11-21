@@ -1,0 +1,25 @@
+extends layout 
+
+block content
+    head 
+        link(rel="stylesheet" href='/public/stylesheets/profilePictureForm.css')
+
+    body
+    h1 Profile settings
+    div(class="profileNavbar")
+        a(href=user.url+'/update') Account
+        a(href=user.url+'/general') General settings
+        a(href=user.url+'/advanced') Advanced
+        div(class="animation start-general")
+    hr
+
+    each msg in successes
+        div.alert_succes
+            p= msg
+    each err in errors
+        div.alert_error 
+            p= err
+        
+    - var prev_values = {};
+    if stored.length > 0
+        - prev_values = stored[0];

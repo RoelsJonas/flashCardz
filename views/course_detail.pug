@@ -20,4 +20,10 @@ block content
         p= course.description
 
     a.btn.btn-primary(href="/cards?course_id=" + course._id ) View Cards
+    br
+    br
+    if creator == user.username
+        a.btn.btn-primary(href="/courses/"+ course._id +"/delete") Delete course
+        br
+        a.btn.btn-primary(href="/courses/"+ course._id +"/update") Edit course
     

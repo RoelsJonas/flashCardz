@@ -611,3 +611,7 @@ color: white;
   background-color: rgba(165, 165, 165, 0.75);
   border-color: rgba(165, 165, 165, 0.75);
 }
+
+.preload *{
+  transition-property: none !important;
+}

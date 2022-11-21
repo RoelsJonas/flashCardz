@@ -5,7 +5,13 @@ block content
         link(rel="stylesheet" href='/public/stylesheets/profilePictureForm.css')
 
     body
-    h1 Username:  #{user.username}
+    h1 Profile settings
+    div(class="profileNavbar")
+        a(href=user.url+'/update') Account
+        a(href=user.url+'/general') General settings
+        a(href=user.url+'/advanced') Advanced
+        div(class="animation start-home")
+    hr
 
     each msg in successes
         div.alert_succes

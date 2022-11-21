@@ -1,5 +1,5 @@
 var Card = require("../models/card");
-const course = require("../models/course");
+var Course = require("../models/course");
 var async = require("async");
 var User = require("../models/User");
 const flash = require("flash");
@@ -12,7 +12,7 @@ exports.card_create_get = function (req, res, next) {
         async.parallel(
             {
                 courses: function (callback) {
-                    course.find(callback);
+                    Course.find(callback);
                 }
             },
             function (err, results) {
@@ -37,21 +37,33 @@ exports.card_create_post = [
     body("a", "Invalid question").trim().isLength({min: 1}).escape(),
     body("course").escape(),
 
-    (req, res, next) => {
+    async (req, res, next) => {
         const errors= validationResult(req);
-        console.log("test" + req.user);
-        User.findOne({ 'username': req.user.username}, '_id', function(err, author) {
-            var card = new Card({
-                title: req.body.title,
-                creatorId: author._id,
-                courseId: req.body.course,
-                front: req.body.q,
-                back: req.body.a
-            });
-            card.save(function (err){
-                if (err) return next(err);
-                else req.flash("cardCreation","Card has been created");
-            });
+
+        // Check if user exists
+        var user = User.findOne({ 'username': req.user.username}, '_id');
+        if(!user){
+            return;
+        }
+
+        // Add card
+        var card = new Card({
+            title: req.body.title,
+            creatorId: user._id,
+            courseId: req.body.course,
+            front: req.body.q,
+            back: req.body.a
+        });
+        card.save(function (err){
+            if (err) return next(err);
+            else req.flash("cardCreation","Card has been created");
+        });
+        
+        // Increment course number index
+        Course.findOneAndUpdate({ _id: req.body.course}, {
+            $inc: {
+                numCards: 1
+            }
         });
         
         res.redirect("/cards/create");

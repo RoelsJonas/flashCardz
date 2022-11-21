@@ -1,0 +1,177 @@
+.courseList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    list-style-type: none;  
+}
+
+.courseItem{
+    margin: 0 2% 2% 0;
+    padding: 0;
+    transform: translate(0);
+    width: 23.5%;
+}
+
+.courseBox{
+    padding: 10px;
+}
+
+
+.courseItem:hover  .courseLink{
+    background-color: #4c4c4c1a;
+}
+
+.courseLink{
+    
+    overflow: hidden;
+    text-decoration: none !important;
+    color: var(--text-color) !important;
+    display: flex;
+    border-radius: 10px;
+    flex-direction: column;
+    height: 80px;
+    justify-content: space-between;
+    position: relative;
+    background-color: var(--sidebar-color);
+    cursor: pointer;
+}
+
+.courseSchool{
+    display: block;
+}
+
+.courseName{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.courseDetails{
+    list-style-type: none;  
+    display: block;
+    position: absolute;
+    right: 5%;
+    bottom: 5%;   
+}
+
+.courseDetails > li{
+    display: inline-block;
+    margin-left: 10px;
+    transform: translateY(50px); 
+}
+.courseItem:hover  .courseDetails > li{
+    transform: translateY(0px); 
+}
+.courseDetails > li:nth-child(1){
+    transition: 0.4s all 0s ease;
+}
+.courseDetails > li:nth-child(2){
+    transition: 0.4s all 0.1s ease;
+}
+.courseDetails > li:nth-child(3){
+    transition: 0.4s all 0.2s ease;
+}
+
+.courseFavorite{
+    display: block;
+    position: absolute;
+    right: 5%;
+    top: -50%;
+    transition: all 0.4s ease;
+}
+
+
+.courseItem:hover  .courseFavorite{
+    display: block;
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    transition: all 0.4s ease;
+}
+
+.courseItem  .courseFavorite:hover{
+    transform: scale(1.25);
+    transition: all 0.4s ease;
+}
+
+.courseCreate{
+    position: absolute;
+    right: 0%;
+}
+
+.courseShowMore{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.courseShowMore:hover{
+    color: var(--primary-color);
+}
+
+.courseLink.createCourse{
+    background: #091e420a;
+}
+.courseItem.createCourse:hover  .courseLink{
+    background-color: var(--primary-color);
+}
+
+.courseBox.createCourse{
+    margin: auto;
+}
+
+.courseName.createCourse{
+    color: var(--text-color);
+}
+
+.createCourseImage{
+    color: var(--text-color);
+}
+
+
+
+/* Navigation bar */
+.coursesNavbar {
+	margin: 10px auto 0;
+	position: relative;
+	height: 50px;
+	border-radius: 8px;
+	font-size: 0;
+}
+.coursesNavbar a{
+	line-height: 50px;
+	height: 100%;
+	font-size: 15px;
+	display: inline-block;
+	position: relative;
+	z-index: 1;
+	text-decoration: none;
+	text-align: center;
+	color: var(--text-color);
+	cursor: pointer;
+}
+.coursesNavbar .animation {
+	position: absolute;
+	height: 100%;
+	top: 0;
+	z-index: 0;
+	transition: all .5s ease 0s;
+	border-radius: 8px;
+}
+.coursesNavbar a:nth-child(1) {
+	width: 150px;
+}
+.coursesNavbar a:nth-child(2) {
+	width: 150px;
+}
+
+.coursesNavbar .start-personalcourses, a:nth-child(1):hover~.animation {
+	width: 150px;
+	left: 0;
+	background-color: #ffffff9c;
+}
+.coursesNavbar .start-publiccourses, a:nth-child(2):hover~.animation {
+	width: 150px;
+	left: 150px;
+	background-color: #ffffff9c;
+}
+

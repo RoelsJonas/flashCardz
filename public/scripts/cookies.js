@@ -34,9 +34,11 @@ window.onload = () => {
     if (!localStorage.getItem(consentPropertyName)) {
         setTimeout(() => {
             consentPopup.classList.remove('hidden');
+            autoEatCookie();
         }, 1000);
     }
 
+    acceptBtn.addEventListener('click', acceptCookies);
     // const token = await jwt.sign({ username: user.username }, SECRET);
     // let options = {
     //     maxAge: 1000 * 60 * 60 * 24 * 180, // would expire after half a year
@@ -44,6 +46,7 @@ window.onload = () => {
     // res.cookie("consent", token, options);
 
   };
+
 
   // Eat a bit of cookie
   let increment = 1;
@@ -64,12 +67,14 @@ window.onload = () => {
       cookieImage.src = '/public/media/cookie'+increment+'.png';
     }
   };
+
   //Eat a bit of cookie every 3seconds
-  autoEatCookie();
   function autoEatCookie(){
     setTimeout(function(){
-      eatCookie();
-      autoEatCookie();
+      if(!consentPopup.classList.contains('hidden')){
+        eatCookie();
+        autoEatCookie();
+      }
     }, 3000);
   }
 
