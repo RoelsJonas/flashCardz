@@ -9,7 +9,8 @@ const CourseSchema = new Schema({
     public: {type: Boolean, default: true},
     numCards: {type: Number, default: 0},
     numFavorites: {type: Number, default: 0},
-    numVisits: {type: Number, default: 0}
+    numVisits: {type: Number, default: 0},
+    image: [{ type: Schema.Types.ObjectId, ref: 'Image' }]
 });
 
 CourseSchema.virtual("url").get(function () {

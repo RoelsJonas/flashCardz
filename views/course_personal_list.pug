@@ -22,7 +22,7 @@ block content
                 each recent in recents
                     li(class="courseItem")
                         a(href=recent.course.url, class="courseLink")
-                            div(class="courseBox")
+                            div(class="courseBox", style='background-image: url(`/user/image/${process.env.DEFAULT_PF_ID}`);')
                                 span(class="courseName") #{recent.course.name} 
                                 span(class="courseSchool") 
                                     if recent.course.school != ""

@@ -5,6 +5,8 @@ const Card = require("../models/card");
 const async = require("async");
 const Favorite = require("../models/Favorite");
 const Visit = require("../models/Visit");
+const createProfilePicture = require("../utils/createProfilePicture");
+const Image = require("../models/Image");
 
 
 exports.course_personal_list = async (req, res, next) => {
@@ -85,9 +87,12 @@ exports.course_create_get = function (req, res, next) {
 
 };
 
-exports.course_create_post = function(req, res, next){
+exports.course_create_post = async function(req, res, next){
     try{
-        
+        console.log(req.body.name);
+        var imageObject = await createProfilePicture(req.body.name);
+        const uploadObject = new Image(imageObject);
+        let picture = await uploadObject.save();
         User.findOne({ 'username': req.user.username}, '_id', function(err, author) {
             var course = new Course({
                 name: req.body.name,
@@ -95,7 +100,8 @@ exports.course_create_post = function(req, res, next){
                 code: req.body.code,
                 school: req.body.school,
                 creator: author,
-                public: req.body.public ? true : false
+                public: req.body.public ? true : false,
+                image: picture._id,
             });
             course.save(function (err){
                 if (err) return next(err);
@@ -129,7 +135,7 @@ exports.course_detail = async (req, res, next) => {
         return next(err);
     }
 
-    // Check if user already visited this course
+    // Check if user already visited this course 
     var old_visit = await Visit.findOne({user: course.creator, course: course._id});
     if(old_visit){
         await Visit.findOneAndUpdate({ _id: old_visit._id}, {
