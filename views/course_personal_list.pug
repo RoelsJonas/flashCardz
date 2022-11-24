@@ -5,6 +5,13 @@ block content
         link(rel='stylesheet', href='/public/stylesheets/coursesList.css')
     body
         h1 Courses:
+
+        each msg in successes
+            div.alert_succes
+                p= msg
+        each err in errors
+            div.alert_error 
+                p= err
         
         div(class="coursesNavbar")
             a(href='personal') Your courses
@@ -62,7 +69,7 @@ block content
                                     li
                                         i(class="fa-solid fa-eye")
                                         span #{favorite.course.numVisits}
-                                div(class="courseFavorite" data-path=`${favorite.course._id}/${user._id}` onclick="favorite(this)")
+                                div(class="courseFavorite" data-id=`${favorite.course._id}` onclick="favorite(this)")
                                     i(class="bx bxs-star")  
                 
                 li(class="courseItem")
@@ -79,7 +86,9 @@ block content
                     li(class="courseItem")
                         a(href=course.url, class="courseLink")
                             div(class="courseBox")
-                                span(class="courseName") #{course.name} 
+                                span(class="courseName") #{course.name}
+                                    if course.public 
+                                        i(class='bx bxs-megaphone coursePublicIcon')
                                 span(class="courseSchool") 
                                     if course.school != ""
                                         |    #{course.school} 
@@ -100,4 +109,7 @@ block content
                             i(class="bx bx-plus createCourseImage")
                             span(class="courseName createCourse") Create new course
 
-    script(src='/public/scripts/courseFavorite.js').
+    script(src='/public/scripts/courseFavorite.js')
+        <!-- This script is used to pass variables from this pug file to the courseAddition javascript file -->
+    script(type="text/javascript").
+        var user = !{JSON.stringify(user)};

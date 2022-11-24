@@ -25,7 +25,7 @@ function favorite(star){
             console.log("Something went wrong while trying to add to favorites");
         }
     }
-    xhttp.open("POST", `/courses/favorite/${star.getAttribute("data-path")}`,true);
+    xhttp.open("POST", `/courses/favorite/${star.getAttribute("data-id")}/${user._id}`,true);
     xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
     xhttp.send(JSON.stringify({favorited: favorited}));
 }

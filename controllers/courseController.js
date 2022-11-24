@@ -19,11 +19,7 @@ exports.course_personal_list = async (req, res, next) => {
     
     // Find all the courses that are private and have this users creator id, or are public and are from this user
     // Next find all favorites and populate these courses, do the same for recents
-    courses = await Course.find({
-        $or: [
-            {"public":true, "creator": req.user._id},
-            {"public": false}
-    ]})
+    courses = await Course.find({creator: req.user._id})
         .sort("name");
     favorites = await Favorite.find({user: req.user._id}, "course")
         .populate("course");
@@ -31,8 +27,11 @@ exports.course_personal_list = async (req, res, next) => {
         .sort("-createdAt")
         .limit(6)
         .populate("course");
-
-    res.render("course_personal_list", {course_list: courses, favorites: favorites, recents: recents , user: req.user});
+    
+    const successes = req.flash('successes') || [];
+    const errors = req.flash('errors') || [];
+    const stored = req.flash('stored') || [];
+    res.render("course_personal_list", {course_list: courses, favorites, recents, successes, errors, stored , user: req.user});
 };
 
 exports.course_public_list = async (req, res, next) => {
@@ -42,6 +41,10 @@ exports.course_public_list = async (req, res, next) => {
         res.redirect("/login");
         return;
     } 
+
+    const successes = req.flash('successes') || [];
+    const errors = req.flash('errors') || [];
+    const stored = req.flash('stored') || [];
 
     // If there is a search
     if(req.query){
@@ -58,7 +61,7 @@ exports.course_public_list = async (req, res, next) => {
                         
             count = await Course.count(query);
             favorites = await Favorite.find({user: req.user._id}, "course");
-            res.render("course_public_list", {course_list: courses, favorites: favorites, user:req.user, count: count})
+            res.render("course_public_list", {course_list: courses, favorites, user:req.user, count, successes, errors, stored})
             return;
         }
     }
@@ -69,7 +72,7 @@ exports.course_public_list = async (req, res, next) => {
         .limit(3);
     count = await Course.count({"public":true});
     favorites = await Favorite.find({user: req.user._id}, "course");
-    res.render("course_public_list", {course_list: courses, favorites: favorites, user: req.user, count: count});
+    res.render("course_public_list", {course_list: courses, favorites, user: req.user, count, successes, errors, stored});
 };
 
 exports.course_create_get = function (req, res, next) {
@@ -135,8 +138,16 @@ exports.course_detail = async (req, res, next) => {
         return next(err);
     }
 
-    // Check if user already visited this course 
-    var old_visit = await Visit.findOne({user: course.creator, course: course._id});
+    //If this course is private and this is another user, it shouldn't be accessible
+    if(!course.public && !course.creator.equals(req.user._id)){
+        req.flash("errors","Oops something went wrong, course not found!");
+        res.redirect("/courses/personal");
+        return;
+    }
+
+
+    // Check if user already visited this course
+    var old_visit = await Visit.findOne({user: req.user._id, course: course._id});
     if(old_visit){
         await Visit.findOneAndUpdate({ _id: old_visit._id}, {
             createdAt: Date.now()
@@ -146,7 +157,7 @@ exports.course_detail = async (req, res, next) => {
     }
     else{
         var visit = new Visit({
-            user: course.creator,
+            user:  req.user._id,
             course: course._id,
         });
         await visit.save();
@@ -190,6 +201,13 @@ exports.course_favorite_post = async (req, res, next) => {
         if(!user){
             res.sendStatus(400);
             console.log("No user found");
+            return;
+        }
+
+        //If this course is private and this is another user, it shouldn't be accessible
+        if(!course.public && !course.creator.equals(req.params.uid)){
+            res.sendStatus(400);
+            console.log("Couldn't add to favorites");
             return;
         }
 
@@ -306,7 +324,7 @@ exports.course_delete_post = async (req, res) => {
       }
       
       // Delete image of the course
-      await Image.findByIdAndRemove(course.image);
+      // await Image.findByIdAndRemove(course.image);
       
       // Delete cards of the course
       await Card.deleteMany({ courseId: req.params.id});
@@ -361,6 +379,12 @@ exports.course_delete_post = async (req, res) => {
             school: req.body.school,
             public: req.body.public ? true : false,
         };
+
+        // If you change the course from public to private delete all favorites and visits of other users
+        if(course.public == true && input.public == false){
+            await Favorite.deleteMany({ course: req.params.id, user: { $ne: req.user._id }});
+            await Visit.deleteMany({ course: req.params.id, user: { $ne: req.user._id }});
+        }
             
         // Update the course 
         await Course.findOneAndUpdate({ _id: req.params.id}, input);

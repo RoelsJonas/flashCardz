@@ -54,7 +54,7 @@ more.addEventListener("click", ()=>{
                                                 <span> ${course.numVisits}</span>
                                             </li>
                                         </ul>
-                                        <div class="courseFavorite" data-path=${course._id}/${user._id} onclick="favorite(this)">
+                                        <div class="courseFavorite" data-id=${course._id} onclick="favorite(this)">
                                             ${favorited}
                                         </div>
                                     </div>

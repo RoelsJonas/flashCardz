@@ -41,7 +41,7 @@ exports.card_create_post = [
         const errors= validationResult(req);
 
         // Check if user exists
-        var user = User.findOne({ 'username': req.user.username}, '_id');
+        var user = await User.findOne({ 'username': req.user.username}, '_id');
         if(!user){
             return;
         }
@@ -54,13 +54,14 @@ exports.card_create_post = [
             front: req.body.q,
             back: req.body.a
         });
-        card.save(function (err){
+
+        await card.save(function (err){
             if (err) return next(err);
             else req.flash("cardCreation","Card has been created");
         });
         
         // Increment course number index
-        Course.findOneAndUpdate({ _id: req.body.course}, {
+        await Course.findOneAndUpdate({ _id: req.body.course}, {
             $inc: {
                 numCards: 1
             }

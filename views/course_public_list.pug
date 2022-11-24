@@ -5,6 +5,13 @@ block content
         link(rel='stylesheet', href='/public/stylesheets/coursesList.css')
     body
         h1 Courses:
+
+        each msg in successes
+            div.alert_succes
+                p= msg
+        each err in errors
+            div.alert_error 
+                p= err
         
         div(class="coursesNavbar")
             a(href='personal') Your courses
@@ -18,6 +25,7 @@ block content
         hr
         div(class="publicCourses")
             h4 Public courses
+            h10 Results #{count}
             ul(class="courseList")
                 each course in course_list
                     li(class="courseItem")
@@ -38,7 +46,7 @@ block content
                                         i(class="fa-solid fa-eye")
                                         span #{course.numVisits}
 
-                                div(class="courseFavorite" data-path=`${course._id}/${user._id}` onclick="favorite(this)")
+                                div(class="courseFavorite" data-id=`${course._id}` onclick="favorite(this)")
                                     if favorites.find(f => f.course.equals(course._id))
                                         i(class="bx bxs-star")
                                     else 
