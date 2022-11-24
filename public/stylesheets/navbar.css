@@ -30,6 +30,7 @@ body{
   --text-highlight-color: black;
   --profile-color: #707070;
 --textbox-background: #FFF;
+--invert: 0;
 }
 
 :root:has(#dark:checked){
@@ -43,6 +44,8 @@ body{
 --text-color: #FFF;
 --text-highlight-color: #FFF;
 --textbox-background: #1D1B31;
+
+--invert: 1;
 }
 
 ::selection{
@@ -617,5 +620,5 @@ color: white;
 }
 
 .div-share {
-  color: var(--text-color);
+  filter: invert(var(--invert));
 }
