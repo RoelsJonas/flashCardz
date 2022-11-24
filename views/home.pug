@@ -1,9 +1,7 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #[em LocalLibrary], a very basic Express website developed as a tutorial example on the Mozilla Developer Network.
-
-  h1 Dynamic content
-  iframe(class="yt_embed" src="https://www.youtube.com/embed/csnnfJi1j2g")
-  
+  h1(class="site-title")= title
+  p Welcome to  #{title}, the best site to study more efficiently.
+  br
+  h3 Getting Started
