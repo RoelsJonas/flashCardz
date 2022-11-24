@@ -615,3 +615,7 @@ color: white;
 .preload *{
   transition-property: none !important;
 }
+
+.div-share {
+  color: var(--text-color);
+}

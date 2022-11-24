@@ -25,5 +25,12 @@ block content
     if creator == user.username
         a.btn.btn-primary(href="/courses/"+ course._id +"/delete") Delete course
         br
+        br
         a.btn.btn-primary(href="/courses/"+ course._id +"/update") Edit course
-    
+        
+    if course.public
+        br
+        br
+        div(id="share", class="div-share")
+            a.btn.btn-primary(id="btn-share") Share by QR code
+        script(src="/public/scripts/course_details.js")
