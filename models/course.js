@@ -10,7 +10,7 @@ const CourseSchema = new Schema({
     numCards: {type: Number, default: 0},
     numFavorites: {type: Number, default: 0},
     numVisits: {type: Number, default: 0},
-    image: [{ type: Schema.Types.ObjectId, ref: 'Image' }]
+    image: { type: Schema.Types.ObjectId, ref: 'Image' }
 });
 
 CourseSchema.virtual("url").get(function () {

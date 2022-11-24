@@ -1,5 +1,6 @@
 const Image = require("../models/Image");
 const { Configuration, OpenAIApi } = require("openai");
+
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -30,8 +31,14 @@ module.exports = async (caption) => {
         };
 	} catch (error) {
 		console.log("Something went wrong generation image!");
-		console.log(error);
-		return error;
+		if (error.response) {
+            console.log(error.response.status);
+            console.log(error.response.data);
+        } 
+        else {
+            console.log(error.message);
+        }
+        return;
 	}
 };
 

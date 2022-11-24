@@ -14,11 +14,16 @@
 
 .courseBox{
     padding: 10px;
+    z-index: 1;
 }
 
 
 .courseItem:hover  .courseLink{
-    background-color: #4c4c4c1a;
+    background: #4c4c4c1a;
+    z-index: 1;
+}
+.courseItem:hover  .courseImage{
+    filter: brightness(90%);
 }
 
 .courseLink{
@@ -180,3 +185,11 @@
     opacity: 0.25;
 }
 
+.courseImage{
+    object-fit: cover;
+    background: var(--primary-color-light);
+    transition: all 0.4s ease;
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+}

@@ -44,6 +44,8 @@ block content
                                     li
                                         i(class="fa-solid fa-eye")
                                         span #{recent.course.numVisits}
+                            if recent.course.image 
+                                img(src="image/"+recent.course.image class="courseImage")
                 else 
                     li You have no recently visited courses yet 
 
@@ -71,6 +73,8 @@ block content
                                         span #{favorite.course.numVisits}
                                 div(class="courseFavorite" data-id=`${favorite.course._id}` onclick="favorite(this)")
                                     i(class="bx bxs-star")  
+                            if favorite.course.image 
+                                img(src="image/"+favorite.course.image class="courseImage")
                 
                 li(class="courseItem")
                     a(href='/courses/public', class="courseLink createCourse") 
@@ -102,6 +106,8 @@ block content
                                     li
                                         i(class="fa-solid fa-eye")
                                         span #{course.numVisits}
+                            if course.image 
+                                img(src="image/"+course.image class="courseImage")
                                         
                 li(class="courseItem")
                     a(href='/courses/create', class="courseLink createCourse") 

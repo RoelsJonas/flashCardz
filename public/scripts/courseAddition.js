@@ -35,6 +35,11 @@ more.addEventListener("click", ()=>{
                     else 
                         favorited =`<i class="bx bx-star"></i>`
 
+                    var image = ""
+                    if(course.image){
+                        image = "<img src='image/"+course.image+"' class='courseImage'></img>"
+                    }
+
                     html +=`<li class="courseItem">
                                 <a href="/courses/course${course._id}", class="courseLink">
                                     <div class="courseBox">
@@ -58,6 +63,7 @@ more.addEventListener("click", ()=>{
                                             ${favorited}
                                         </div>
                                     </div>
+                                    ${image}
                                 </a>
                             </li>`
                 }

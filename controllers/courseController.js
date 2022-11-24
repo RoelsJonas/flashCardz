@@ -92,8 +92,9 @@ exports.course_create_get = function (req, res, next) {
 
 exports.course_create_post = async function(req, res, next){
     try{
-        console.log(req.body.name);
-        var imageObject = await createProfilePicture(req.body.name);
+
+        var imageObject = await createProfilePicture(req.body.image);
+        console.log(imageObject);
         const uploadObject = new Image(imageObject);
         let picture = await uploadObject.save();
         User.findOne({ 'username': req.user.username}, '_id', function(err, author) {
@@ -108,11 +109,12 @@ exports.course_create_post = async function(req, res, next){
             });
             course.save(function (err){
                 if (err) return next(err);
+                req.flash("successes","Course created");
                 res.redirect('/courses/personal');
             });
         });
     } catch {
-        res.render("course_form", {user: req.user, err: "Error creating course"});
+        res.render("course_form", {user: req.user, errors: ["Something went wrong"], successes: [], stored: []});
     }
 };
 
@@ -324,7 +326,9 @@ exports.course_delete_post = async (req, res) => {
       }
       
       // Delete image of the course
-      // await Image.findByIdAndRemove(course.image);
+      if(course.image){
+        await Image.findByIdAndRemove(course.image);
+      }
       
       // Delete cards of the course
       await Card.deleteMany({ courseId: req.params.id});
@@ -395,3 +399,22 @@ exports.course_delete_post = async (req, res) => {
         res.status(400).json({ error });
     }
   };
+
+// Get the course image
+exports.course_image_get = async (req, res) => {
+    try{
+      let img = await Image.findOne({_id: req.params.id});
+      if(!img){
+        res.status(400).json("No course picture found!");
+      }
+  
+      res.contentType(img.file.contentType);
+      res.send(img.file.data);
+    }
+    catch (error) {
+      console.log("Error detected");
+      console.log(error);
+      // res.status(400).json({ error });
+    }
+};
+  

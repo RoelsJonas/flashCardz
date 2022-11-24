@@ -10,6 +10,9 @@ const {log} = require("mercedlogger");
 const flash = require('connect-flash');
 const session = require('express-session');
 
+// Configure the dotenv file
+require('dotenv').config();
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var coursesRouter = require('./routes/courses');

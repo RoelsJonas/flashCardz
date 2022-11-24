@@ -26,4 +26,6 @@ router.post("/:id/delete", isLoggedIn, courseController.course_delete_post);
 router.get("/:id/update", isLoggedIn, courseController.course_update_get);
 router.post("/:id/update", isLoggedIn, courseController.course_update_post);
 
+router.get("/image/:id", isLoggedIn, courseController.course_image_get);
+
 module.exports = router;
