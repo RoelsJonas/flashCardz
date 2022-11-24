@@ -7,27 +7,43 @@ const flash = require("flash");
 const { body, validationResult } = require("express-validator");
 
 exports.card_create_get = function (req, res, next) {
-    const cardCreation = req.flash("cardCreation") || [];
-    if(req.user){
-        async.parallel(
-            {
-                courses: function (callback) {
-                    Course.find(callback);
+    try{
+        const cardCreation = req.flash("cardCreation") || [];
+        if(req.user){
+            async.parallel(
+                {
+                    courses: function (callback) {
+                        Course.find(callback);
+                    }
+                },
+                function (err, results) {
+                    if (err) {
+                        console.log("Card controller - error " + err);
+                        return next(err);
+                    }
+                    
+                    try{
+                    results.courses.forEach((course, index, courses) => {
+                        if(course.creator) {
+                            if(!course.public &&  course.creator != req.user._id) results.courses.splice(index, 1);
+                        }
+                        else results.courses.splice(index, 1);
+                    });  
+                    } catch(error) {
+                        console.log(error);
+                    }
+
+                    res.render("card_form", {user: req.user, courses: results.courses, cardCreation})
                 }
-            },
-            function (err, results) {
-                if (err) {
-                    console.log("Card controller - error " + err);
-                    return next(err);
-                }
-                res.render("card_form", {user: req.user, courses: results.courses, cardCreation})
-            }
-        );
-    } 
-    else{ 
-        // If not logged in, redirect to login. If succesfully logged in we redirect back to this page.
-        req.session.redirectTo = '/cards/create';
-        res.redirect("/login");
+            );
+        } 
+        else{ 
+            // If not logged in, redirect to login. If succesfully logged in we redirect back to this page.
+            req.session.redirectTo = '/cards/create';
+            res.redirect("/login");
+        }
+    } catch(error) {
+        console.log("error in cardcreation form: " + error);
     }
 };
 
