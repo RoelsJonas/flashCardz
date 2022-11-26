@@ -482,7 +482,7 @@ opacity: 0;
     .sidebar.open .profile-details {  
       width: 100%;
       padding: -10px -50% -10px -50%;
-      bottom: -78px;
+      bottom: -140px;
       border-radius: 12px;
     }
   }

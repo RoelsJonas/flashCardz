@@ -163,10 +163,10 @@
 	border-radius: 8px;
 }
 .coursesNavbar a:nth-child(1) {
-	width: 150px;
+    width: 150px;
 }
 .coursesNavbar a:nth-child(2) {
-	width: 150px;
+    width: 150px;
 }
 
 .coursesNavbar .start-personalcourses, a:nth-child(1):hover~.animation {
@@ -193,3 +193,33 @@
     z-index: 0;
     width: 100%;
 }
+@media only screen and (max-width: 768px) {
+    .courseList {  
+      flex-wrap: nowrap;
+      align-content: stretch;
+      flex-direction: column;
+    }
+
+    .courseItem {
+        width: 100%;
+    }
+
+    .coursesNavbar a:nth-child(1) {
+        width: 45%;
+    }
+    .coursesNavbar a:nth-child(2) {
+        width: 45%;
+    }
+
+    .coursesNavbar .start-personalcourses, a:nth-child(1):hover~.animation {
+        width: 43%;
+        left: 0;
+        background-color: #ffffff9c;
+    }
+    .coursesNavbar .start-publiccourses, a:nth-child(2):hover~.animation {
+        width: 43%;
+        left: 46%;
+        background-color: #ffffff9c;
+    }
+
+  }
