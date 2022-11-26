@@ -98,3 +98,43 @@
 	left: 300px;
 	background-color: #ffffff9c;
 }
+
+
+@media only screen and (max-width: 768px) {
+	.profileNavbar {
+		margin-bottom: 100px;
+	}
+
+    .profileNavbar a:nth-child(1) {
+		width: 100%;
+		height: 50px;
+    }
+    .profileNavbar a:nth-child(2) {
+		width: 100%;
+		height: 50px;
+	}
+	.profileNavbar a:nth-child(3) {
+		width: 100%;
+		height: 50px;
+    }
+
+    .profileNavbar .start-home, a:nth-child(1):hover~.animation {
+        width: 100%;
+		background-color: #ffffff9c;
+		top: 0;
+		left: 0;
+    }
+    .profileNavbar .start-general, a:nth-child(2):hover~.animation {
+        width: 100%;
+		background-color: #ffffff9c;
+		top: 50px;
+		left: 0;
+	}
+	.profileNavbar .start-advanced, a:nth-child(2):hover~.animation {
+        width: 100%;
+		background-color: #ffffff9c;
+		top: 100px;
+		left: 0;
+    }
+
+  }
