@@ -58,9 +58,11 @@ setTimeout(function () {
 
 
 closeBtn.addEventListener("click", ()=>{
-    // Get inverted boolean and set new value in storage
-    var value = JSON.parse(sessionStorage.navbarStatus) === false;
-    sessionStorage.navbarStatus = value;
+    if($(window).width() > 768) {
+        // Get inverted boolean and set new value in storage
+        var value = JSON.parse(sessionStorage.navbarStatus) === false;
+        sessionStorage.navbarStatus = value;
+    }
 
     // Toggle the navbars visuals
     sidebar.classList.toggle("open");
