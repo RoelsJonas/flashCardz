@@ -622,3 +622,7 @@ color: white;
 .div-share {
   filter: invert(var(--invert));
 }
+
+.col-sm-2 {
+  max-width: 250px;
+}
