@@ -9,7 +9,6 @@ courses.forEach(async (course) => {
         const courseName = course.children[0].children[0];
         const image = course.children[0].children[1];
         const palette = await extractColor(image);
-        console.log(palette);
         courseName.style.color = `rgb(${palette[3].join(",")})`;
     }
 })
