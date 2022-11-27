@@ -52,7 +52,7 @@ block content
                                     else 
                                         i(class="bx bx-star")
                             if course.image 
-                                img(src="image/"+course.image class="courseImage")
+                                img(src="image/"+course.image class="courseImage", onerror="this.style.display='none'", alt=" ")
                 else 
                     li No public courses yet
 
