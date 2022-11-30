@@ -52,7 +52,7 @@ block content
                                     else 
                                         i(class="bx bx-star")
                             if course.image 
-                                img(src="image/"+course.image class="courseImage")
+                                img(src="image/"+course.image class="courseImage", onerror="this.style.display='none'", alt=" ")
                 else 
                     li No public courses yet
 
@@ -68,3 +68,6 @@ block content
         var count = "#{count}";
         var user = !{JSON.stringify(user)};
         var favorites = !{JSON.stringify(favorites)};
+
+    script(src=src="https://unpkg.com/colorthief@2.3.2/dist/color-thief.umd.js")
+    script(src='/public/scripts/courseList.js')

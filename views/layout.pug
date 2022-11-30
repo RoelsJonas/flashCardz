@@ -12,8 +12,15 @@ html(lang='en')
     link(rel='stylesheet', href='/public/stylesheets/style.css')
     link(rel="stylesheet" href='/public/stylesheets/navbar.css')
     link(rel="stylesheet" href='/public/stylesheets/cookies.css')
-    link(href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet' crossorigin="anonymous") 
-    script(async, src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1510721999692361", crossorigin="anonymous")
+    link(href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet' crossorigin="anonymous")
+    link(rel='icon', href="/public/media/favicon.svg") 
+    script(async, src="https://www.googletagmanager.com/gtag/js?id=G-E91YF32R8C")
+    script.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-E91YF32R8C');
+
 
   body.preload
     div(class='container-fluid')

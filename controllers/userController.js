@@ -169,6 +169,8 @@ try {
       const token = await jwt.sign({ username: user.username }, SECRET);
       let options = {
           maxAge: 1000 * 60 * 15, // would expire after 15 minutes
+          httpOnly: true,
+          secure: true,
       }
       res.cookie("authorization", token, options);
 

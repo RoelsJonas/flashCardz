@@ -414,7 +414,7 @@ exports.course_image_get = async (req, res) => {
     catch (error) {
       console.log("Error detected");
       console.log(error);
-      // res.status(400).json({ error });
+      res.status(400).json({ error });
     }
 };
   

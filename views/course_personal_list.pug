@@ -45,7 +45,7 @@ block content
                                         i(class="fa-solid fa-eye")
                                         span #{recent.course.numVisits}
                             if recent.course.image 
-                                img(src="image/"+recent.course.image class="courseImage")
+                                img(src="image/"+recent.course.image class="courseImage", onerror="this.style.display='none'", alt=" ")
                 else 
                     li You have no recently visited courses yet 
 
@@ -74,7 +74,7 @@ block content
                                 div(class="courseFavorite" data-id=`${favorite.course._id}` onclick="favorite(this)")
                                     i(class="bx bxs-star")  
                             if favorite.course.image 
-                                img(src="image/"+favorite.course.image class="courseImage")
+                                img(src="image/"+favorite.course.image class="courseImage", onerror="this.style.display='none'", alt=" ")
                 
                 li(class="courseItem")
                     a(href='/courses/public', class="courseLink createCourse") 
@@ -107,7 +107,7 @@ block content
                                         i(class="fa-solid fa-eye")
                                         span #{course.numVisits}
                             if course.image 
-                                img(src="image/"+course.image class="courseImage")
+                                img(src="image/"+course.image class="courseImage", onerror="this.style.display='none'", alt=" ")
                                         
                 li(class="courseItem")
                     a(href='/courses/create', class="courseLink createCourse") 
@@ -119,3 +119,5 @@ block content
         <!-- This script is used to pass variables from this pug file to the courseAddition javascript file -->
     script(type="text/javascript").
         var user = !{JSON.stringify(user)};
+    script(src=src="https://unpkg.com/colorthief@2.3.2/dist/color-thief.umd.js")
+    script(src='/public/scripts/courseList.js')
