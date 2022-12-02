@@ -89,14 +89,14 @@ function setModal(data){
     courseModalLink.addEventListener('click', function(){
         event.preventDefault();
         event.stopPropagation();
-        copySharingLink(course.name);
+        navigator.clipboard.writeText("Start studying " + course.name + " now at: " + courseModalTest.href);
         courseModalLink.innerHTML = "Copied ✓";
     });
     var alreadyImage = courseModalQR.querySelector("img");
     if(alreadyImage){
         alreadyImage.remove();
     }
-    courseModalQR.insertAdjacentHTML('afterbegin', getQRImage());
+    courseModalQR.insertAdjacentHTML('afterbegin', '<img class="div-share", src="https://qrtag.net/api/qr_transparent_12.svg?url=' + courseModalTest.href + '"" alt="qrCode">');
     
     if(creator == user.username){
         courseModalEdit.href = "/courses/"+ course._id +"/update";

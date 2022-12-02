@@ -174,8 +174,8 @@
     display: none;
 }
 .courseModalQR img{
-    width: 80%;
-    filter: brightness(0);
+    width: 75%;
+    /* filter: brightness(0); */
 }
 
 #courseModalLink{
