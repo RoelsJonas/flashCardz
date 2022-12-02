@@ -1,4 +1,4 @@
-.cookie-banner{
+.courseModal{
     z-index: 10;
 	top: 50%;
     left: 50%;
@@ -9,13 +9,13 @@
     perspective: 2500px;
 }
   
-.cookie-banner.hidden{
+.courseModal.hidden{
 	transform: translate(-50%,-50%) scale(0);
 	transition: all 0.4s cubic-bezier(.3,-0.87,.51,.73);
 	z-index: -1;
 }
 
-.cookie-banner-inside{
+.courseModal-inside{
     max-width: 300px;
     width: 500px;
     height: 350px;
@@ -30,7 +30,7 @@
     transform: rotateX(-1deg) rotateY(1deg); /*This removes the weird blurry effect */
 }
 
-.cookie-banner-close{
+.courseModal-close{
 	position: absolute;
     right:0;
 	height: 25px;
@@ -38,7 +38,7 @@
 	transform: rotate(0);
 	transition: all 0.2s ease;
 }
-.cookie-banner-edit{
+.courseModal-back, .courseModal-share{
 	margin-right: auto;
 	height: 25px;
     scale: 0.75;
@@ -47,13 +47,13 @@
 	transition: all 0.2s ease;
 }
 
-.cookie-banner-close:hover, .cookie-banner-edit:hover{
+.courseModal-close:hover, .courseModal-back:hover, .courseModal-share:hover{
 	color: var(--text-color);
 	transform: rotate(90deg);
 	transition: all 0.2s ease;
 }
 
-.cookie-banner-image{
+.courseModal-image{
 	height: 60px;
     scale: 1;
     transform: translateY(0px);
@@ -62,14 +62,14 @@
     transition: transform 1s cubic-bezier(0.175,0.885,0.320,1.275), opacity 1s ease;
 }
 
-.cookie-banner-image.reset{
+.courseModal-image.reset{
 	scale: 0;
     transform: translateY(-100px);
     opacity: 0;
     transition: all 1s cubic-bezier(0.175,0.885,0.320,1.275);
 }
 
-.cookie-banner-accept{
+.courseModal-accept{
     font-family: "Poppins", sans-serif;
 	background-color: var(--primary-color);
 	border-color: var(--primary-color);
@@ -78,31 +78,31 @@
 	transition: all 0.2s ease;
 }
 
-.cookie-banner-accept:hover{
+.courseModal-accept:hover{
 	color: var(--sidebar-color);;
 	margin-left: 10px;
 	transform: scale(1.025);
 	transition: all 0.2s ease;
 }
 
-.cookie-banner-decline{
+.courseModal-decline{
     margin-top: 5px;
 }
-.cookie-banner-decline:hover{
+.courseModal-decline:hover{
     text-decoration: none;
     color: var(--text-color)
 }
 
 
 
-.cookie-banner-text{
+.courseModal-text{
 	color: var(--text-color);
 	font-family: "Poppins", sans-serif;
 	margin-bottom: 15px;
 	margin-top: 15px;
 }
 
-.cookie-banner-title{
+.courseModal-title{
     color: var(--text-color);
 	font-family: "Poppins", sans-serif;
 	margin-top: 15px;
@@ -110,11 +110,11 @@
     font-size: 20px;
 }
 
-.cookie-banner-policy{
+.courseModal-policy{
     font-weight: 500;
 }
 
-.cookie-banner .contents{
+.courseModal .contents{
     backface-visibility: hidden;
     position: absolute;
     padding: 12px 16px;
@@ -122,7 +122,7 @@
     left: 0;
 }
 
-.cookie-banner .depth{
+.courseModal .depth{
     display: flex;
 	flex-direction: column;
 	text-align: center;
@@ -132,51 +132,59 @@
     perspective: inherit;
     width: 275px;
 }
-.cookie-banner .front{
+.courseModal .front{
     background-size: 100% 100%;
     transform-style: preserve-3d;
 }
-.cookie-banner .back{
+.courseModal .back{
     transform: rotateY(180deg);
     background-size: 100% 100%;
     transform-style: preserve-3d;
 }
 
-.cookieCheckbox{
-    position: relative;
-    appearance: none;
-    width: 50px;
-    height: 25px;
-    background-color: white;
-    border-radius: 50px;
-    box-shadow: inset 0 0 5px rgba(0, 0,0,.2);
-    cursor: pointer;
-    transition: 0.4s;
-}
-.cookieCheckbox:checked{
-    background: var(--primary-color);
-}
-.cookieCheckbox::after {
-    position: absolute;
-    content: "";
-    width: 25px;
-    height: 25px;
-    top: 0;
-    left: 0;
-    background: white;
-    border-radius: 50%;
-    box-shadow: inset 0 0 5px rgba(0, 0,0,.2);
-    transform: scale(1.1);
-    transition: 0.4s;
-    background-color: "/public/media/cookie1.png";
-
-}
-.cookieCheckbox:checked::after {
-    left:50%;
-}
     
-.centred{
-    align-items: center;
-    display: flex;
-    flex-direction: column;
+.courseModalImage{
+    width: 30%;
+    border-radius: 10px;
+}
+
+.courseModalTitle{
+    font-size: 25px;
+}
+
+.courseModalIcons i{
+    margin-left: 10px;
+}
+
+.courseModalInfo{
+    font-weight: bold;
+}
+
+.courseModalDetails.dden{
+    display: block;
+}
+.courseModalDetails.hidden{
+    display: none;
+}
+
+.courseModalQR{
+    display: block;
+}
+.courseModalQR.hidden{
+    display: none;
+}
+.courseModalQR img{
+    width: 80%;
+    filter: brightness(0);
+}
+
+#courseModalLink{
+    margin-top: 5%;
+}
+
+#courseModalEdit{
+    display: block;
+}
+#courseModalEdit.hidden{
+    display: none;
 }

@@ -23,12 +23,16 @@ exports.card_create_get = function (req, res, next) {
                     }
                     
                     try{
-                    results.courses.forEach((course, index, courses) => {
-                        if(course.creator) {
-                            if(!course.public &&  course.creator != req.user._id) results.courses.splice(index, 1);
+                        var length = results.courses.length - 1;
+                        for(var i = length; i >= 0; i--){
+                            var course = results.courses[i];
+                            if(!course.public) {
+                                if(course.creator && !course.creator.equals(req.user._id)){
+                                    console.log(course.creator + "  " + req.user._id);    
+                                    results.courses.splice(i, 1);
+                                }
+                            }
                         }
-                        else results.courses.splice(index, 1);
-                    });  
                     } catch(error) {
                         console.log(error);
                     }

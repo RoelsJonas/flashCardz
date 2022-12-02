@@ -12,7 +12,7 @@ router.get("/create", isLoggedIn, courseController.course_create_get);
 
 router.post("/create", isLoggedIn, courseController.course_create_post);
 
-router.get("/course:id", isLoggedIn, courseController.course_detail);
+router.get("/course_details/:cid/:uid", isLoggedIn, courseController.course_get_details);
 
 router.get("/cards/:id", courseController.course_cards);
 

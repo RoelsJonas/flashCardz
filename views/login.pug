@@ -3,17 +3,36 @@ extends layout
 
 block content
     h1 Log in:
-    each msg in successes
-        div.alert_succes
-            p= msg
-    each err in errors
-        div.alert_error 
-            p= err
-    
+
     - var prev_values = {};
     if stored.length > 0
         - prev_values = stored[0];
-            
+
+    each msg in successes
+        div.alert_succes
+            p= msg
+
+    each err in errors
+        div.alert_error 
+            p= err
+            if err == "Your account hasn't been verified yet, please check your emails"
+                form(
+                        action="/user/resend_email" 
+                        method="POST"
+                    )   
+                    div.form-group
+                        input.form-control(
+                            style="display: none;"
+                            type="text"
+                            name="username"
+                            value= prev_values.username || ""
+                        )
+                    div.form-group
+                        input(
+                            class="buttonToLink"
+                            type="submit"
+                            value="Resend email"
+                        )        
 
     form(
             action="/user/login" 

@@ -1,6 +1,10 @@
 extends layout
 
 block content
+  h1 Oh my cards 
+  h1(style="color: var(--primary-color); font-weight: bold;") 404
+
   h1= message
   h2= error.status
   pre #{error.stack}
+

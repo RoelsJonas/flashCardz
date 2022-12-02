@@ -32,3 +32,15 @@ a {
 p{
 	margin-bottom: 0;
 }
+
+.buttonToLink{
+	border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    color: var(--primary-color);
+    padding: 0;
+    text-decoration: underline;
+    font-family: inherit;
+    font-size: inherit;
+}

@@ -13,6 +13,10 @@ const CourseSchema = new Schema({
     image: { type: Schema.Types.ObjectId, ref: 'Image' }
 });
 
+CourseSchema.virtual("imageUrl").get(function () {
+    return `/courses/image/${this.image}`;
+});
+
 CourseSchema.virtual("url").get(function () {
     return `/courses/course${this._id}`;
 });

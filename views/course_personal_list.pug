@@ -3,6 +3,7 @@ extends layout
 block content
     head
         link(rel='stylesheet', href='/public/stylesheets/coursesList.css')
+        link(rel='stylesheet', href='/public/stylesheets/courseModal.css')
     body
         h1 Courses:
 
@@ -27,9 +28,9 @@ block content
             h4 Recently visited
             ul(class="courseList")
                 each recent in recents
-                    li(class="courseItem")
-                        a(href=recent.course.url, class="courseLink")
-                            div(class="courseBox", style='background-image: url(`/user/image/${process.env.DEFAULT_PF_ID}`);')
+                    li(class="courseItem" data-id=`${recent.course._id}`)
+                        div(onclick="loadModal(this)", class="courseLink") 
+                            div(class="courseBox")
                                 span(class="courseName") #{recent.course.name} 
                                 span(class="courseSchool") 
                                     if recent.course.school != ""
@@ -54,8 +55,8 @@ block content
             h4 Favorited courses
             ul(class="courseList")
                 each favorite in favorites
-                    li(class="courseItem")
-                        a(href=favorite.course.url, class="courseLink")
+                    li(class="courseItem" data-id=`${favorite.course._id}`)
+                        div(onclick="loadModal(this)", class="courseLink") 
                             div(class="courseBox")
                                 span(class="courseName") #{favorite.course.name} 
                                 span(class="courseSchool") 
@@ -71,7 +72,7 @@ block content
                                     li
                                         i(class="fa-solid fa-eye")
                                         span #{favorite.course.numVisits}
-                                div(class="courseFavorite" data-id=`${favorite.course._id}` onclick="favorite(this)")
+                                div(class="courseFavorite" onclick="favorite(this)")
                                     i(class="bx bxs-star")  
                             if favorite.course.image 
                                 img(src="image/"+favorite.course.image class="courseImage", onerror="this.style.display='none'", alt=" ")
@@ -87,8 +88,8 @@ block content
             h4 Your courses
             ul(class="courseList")
                 each course in course_list
-                    li(class="courseItem")
-                        a(href=course.url, class="courseLink")
+                    li(class="courseItem" data-id=`${course._id}`)
+                        div(onclick="loadModal(this)", class="courseLink") 
                             div(class="courseBox")
                                 span(class="courseName") #{course.name}
                                     if course.public 
@@ -114,10 +115,63 @@ block content
                         div(class="courseBox createCourse")
                             i(class="bx bx-plus createCourseImage")
                             span(class="courseName createCourse") Create new course
+        
+        div(class="courseModal hidden")
+            div(class="courseModal-inside")
+                div(class="contents front")
+                    div(class="depth")
+                        a(class="courseModal-close")
+                            i(class="bx bx-x bx-sm")
+                        a(class="courseModal-share")
+                            i(class="bx bxs-share bx-sm")
+                        div(class="courseModalHeader")
+                            img(class="courseModalImage")
+                            p(class="courseModalTitle")
+                        br
+                        br
+                        br
+                        br
+                        a(class="btn btn-primary" id="courseModalTest" onclick="event.stopPropagation();") Take test
+                        br
+                        a(class="btn btn-primary" id="courseModalEdit" onclick="event.stopPropagation();") Edit course
+
+
+                div(class="contents back")
+                    div(class="depth")
+                        a(class="courseModal-close")
+                            i(class="bx bx-x bx-sm")
+                        a(class="courseModal-back")
+                            i(class="bx bx-arrow-back bx-sm")
+                        div(class="courseModalDetails")
+                            div(class="courseModalIcons")
+                                i(class="bx bxs-collection")
+                                span(class="courseModalNumcards") 
+                                i(class="bx bxs-star")
+                                span(class="courseModalFavorites")
+                                i(class="fa-solid fa-eye")
+                                span(class="courseModalVisits")
+                            br
+                            p(class="courseModalInfo") Code
+                            p(class="courseModalCode")
+                            br
+                            p(class="courseModalInfo") Creator
+                            p(class="courseModalCreator")
+                            br
+                            p(class="courseModalInfo") School
+                            p(class="courseModalSchool")
+                            br
+                            p(class="courseModalInfo") Description
+                            p(class="courseModalDescription")
+
+                        div(class="courseModalQR hidden")
+                            a(class="btn btn-primary" id="courseModalLink") Get link
+
+    
 
     script(src='/public/scripts/courseFavorite.js')
         <!-- This script is used to pass variables from this pug file to the courseAddition javascript file -->
     script(type="text/javascript").
         var user = !{JSON.stringify(user)};
-    script(src=src="https://unpkg.com/colorthief@2.3.2/dist/color-thief.umd.js")
-    script(src='/public/scripts/courseList.js')
+    //- script(src=src="https://unpkg.com/colorthief@2.3.2/dist/color-thief.umd.js")
+    script(src='/public/scripts/courseModal.js')
+    script(src="/public/scripts/courseSharing.js")

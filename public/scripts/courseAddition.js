@@ -1,4 +1,4 @@
-var limit = 3;
+var limit = 9;
 var additions = 1;
 
 var list = document.querySelector(".courseList");
@@ -40,8 +40,8 @@ more.addEventListener("click", ()=>{
                         image = "<img src='image/"+course.image+"' class='courseImage'></img>"
                     }
 
-                    html +=`<li class="courseItem">
-                                <a href="/courses/course${course._id}", class="courseLink">
+                    html +=`<li class="courseItem" data-id=${course._id}>
+                                <div onclick="loadModal(this)", class="courseLink"> 
                                     <div class="courseBox">
                                         <span class="courseName"> ${course.name} </span>
                                         <span class="courseSchool">${course.school} </span>
@@ -59,7 +59,7 @@ more.addEventListener("click", ()=>{
                                                 <span> ${course.numVisits}</span>
                                             </li>
                                         </ul>
-                                        <div class="courseFavorite" data-id=${course._id} onclick="favorite(this)">
+                                        <div class="courseFavorite" onclick="favorite(this)">
                                             ${favorited}
                                         </div>
                                     </div>

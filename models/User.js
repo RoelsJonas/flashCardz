@@ -7,7 +7,7 @@ var UsersSchema = new Schema({
     email: {type: String, unique: true, required: true},
     password: {type: String, required: true},
     verified: {type: Boolean, default: false},
-    profilePicture: [{ type: Schema.Types.ObjectId, ref: 'Image' }]
+    profilePicture: {type: Schema.Types.ObjectId, ref: 'Image' }
 });
 
 // Virtual for author's URL

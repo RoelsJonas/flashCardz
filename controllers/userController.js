@@ -366,6 +366,39 @@ router.get("/:id/verify/:token/", async (req, res) => {
 	}
 });
 
+router.post('/resend_email', async (req, res) => {
+  //Check if the user exists, if not so this is a invalid link and redirect to invalid page
+  const user = await User.findOne({ username: req.body.username });
+  if (!user){ 
+    req.flash("errors","User not found while resending email");
+    req.flash("stored", { username: req.body.username} );
+    res.redirect("/login")
+    return;
+  }
+
+  // Get the users token for mail verification
+  const token = await Token.findOne({
+    userId: user._id,
+  });
+  if(!token){
+    // Create a new token for mail verification
+    token = await Token.create({
+      userId: user._id,
+      token: crypto.randomBytes(32).toString('hex')
+    });
+  }
+
+  // Create a url and send it via mail
+  const url = `${process.env.BASE_URL}user/${user._id}/verify/${token.token}`;
+  await sendEmail(user.email, "Confirm Email","verifyEmailTemplate", {url: url, username: user.username});
+  console.log("Verification email has been sent");
+
+  req.flash("successes","Succesfully resend email");
+  req.flash("stored", { username: req.body.username} );
+  res.redirect("/login")
+
+});
+
 router.post('/setcookie', (req, res, next) => {
 
   var value = {

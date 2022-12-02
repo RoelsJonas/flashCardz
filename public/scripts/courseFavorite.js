@@ -1,5 +1,6 @@
 function favorite(star){
     event.preventDefault();
+    event.stopPropagation();
 
     // Get the current status of the course, favorited or not
     var icon = star.querySelector("i")
@@ -25,7 +26,8 @@ function favorite(star){
             console.log("Something went wrong while trying to add to favorites");
         }
     }
-    xhttp.open("POST", `/courses/favorite/${star.getAttribute("data-id")}/${user._id}`,true);
+    var id = star.closest("li").getAttribute("data-id");
+    xhttp.open("POST", `/courses/favorite/${id}/${user._id}`,true);
     xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
     xhttp.send(JSON.stringify({favorited: favorited}));
 }

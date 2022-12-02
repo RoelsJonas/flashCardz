@@ -118,38 +118,40 @@ exports.course_create_post = async function(req, res, next){
     }
 };
 
-exports.course_detail = async (req, res, next) => {
-    // If not logged in, go to login page and redirect after
-    if(!req.user){
-        req.session.redirectTo = '/courses/course' + req.params.id;
-        res.redirect("/login");
+
+exports.course_get_details = async (req, res, next) => {
+
+    // Check if provided user is valid
+    var thisUser = await User.findById(req.params.uid);
+    if(!thisUser){
+        res.sendStatus(400);
+        console.log("No user found");
         return;
     } 
 
-    var course = await Course.findById(req.params.id);
+    var course = await Course.findById(req.params.cid);
     if(!course){
-        var err = new Error("Course not found");
-        err.status = 404;
-        return next(err);
+        res.sendStatus(400);
+        console.log("No course found");
+        return
     }
 
     var user = await User.findById(course.creator);
     if(!user){
-        var err = new Error("User not found");
-        err.status = 404;
-        return next(err);
-    }
-
-    //If this course is private and this is another user, it shouldn't be accessible
-    if(!course.public && !course.creator.equals(req.user._id)){
-        req.flash("errors","Oops something went wrong, course not found!");
-        res.redirect("/courses/personal");
+        res.sendStatus(400);
+        console.log("Creator user not found");
         return;
     }
 
+    //If this course is private and this is another user, it shouldn't be accessible
+    if(!course.public && !course.creator.equals(req.params.uid)){
+        res.sendStatus(400);
+        console.log("User tried to acces private course");
+        return;
+    }
 
     // Check if user already visited this course
-    var old_visit = await Visit.findOne({user: req.user._id, course: course._id});
+    var old_visit = await Visit.findOne({user: thisUser._id, course: course._id});
     if(old_visit){
         await Visit.findOneAndUpdate({ _id: old_visit._id}, {
             createdAt: Date.now()
@@ -159,7 +161,7 @@ exports.course_detail = async (req, res, next) => {
     }
     else{
         var visit = new Visit({
-            user:  req.user._id,
+            user:  thisUser._id,
             course: course._id,
         });
         await visit.save();
@@ -174,15 +176,16 @@ exports.course_detail = async (req, res, next) => {
     }
 
     var username = user.username;
-    res.render("course_detail", {
+    var courseInfo = {
         course: course,
-        creator: username,
-        user: req.user,
-    })
+        creator: username
+    }
+    res.json(courseInfo);
 
 };
 
 exports.course_cards = function (req, res, next) {
+    
     Card.find({courseId: req.params.id}).exec(function (err, cards) {
         res.status(200).json(cards);
     });

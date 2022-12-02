@@ -28,10 +28,14 @@ block content
             input#school.form-control(type='text', placeholder="Name of the school the course is given at (optional)", name="school", value=course.school || "")
         div.for-group
             label(for='public') Public course:
-            input#public.form-control(type='checkbox', name="public", checked=(course.public === true))
+            input#public.form-control(class="cookieCheckbox" type='checkbox', name="public", checked=(course.public === true))
         div.form-group
             input.btn.btn-primary(
                 id="submitButton"
                 type="submit"
                 value="Edit course"
             )
+        
+        br
+        br
+        a.btn.btn-primary(href="/courses/"+ course._id +"/delete") Delete course
