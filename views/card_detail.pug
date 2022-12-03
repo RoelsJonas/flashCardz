@@ -5,23 +5,50 @@ block content
         link(rel="stylesheet" href='/public/stylesheets/card.css')
     body
 
-        div(class="cardbody")
-            div(class="flashcard")
-                div(class="flashcard_container")
-                    div(class="contents front")
-                        div(class="depth")
-                            div(class="top")
-                                div(class="cardtitle", id="title_front")  
-                                div(class="cardtext", id="front")  
-                            
+        div(class="test hidden")
+            div(class="cardbody")
+                div(class="flashcard")
+                    div(class="flashcard_container")
+                        div(class="contents front")
+                            div(class="depth")
+                                div(class="top")
+                                    div(class="cardtitle", id="title_front")  
+                                    div(class="cardtext", id="front")  
+                                
 
-                    div(class="contents back")
-                        div(class="depth")
-                            div(class="top")
-                                div(class="cardtitle", id="title_back")  
-                                div(class="cardtext", id="back")  
-        div(class="div-control")
-            button.btn.btn-primary(id="btn-prev", disabled='true') Previous
-            label(class="cardcount", id="amount-label") x/x
-            button.btn.btn-primary(id="btn-next") Next
-    script(src='/public/scripts/card.js', )
+                        div(class="contents back")
+                            div(class="depth")
+                                div(class="top")
+                                    div(class="cardtitle", id="title_back")  
+                                    div(class="cardtext", id="back")  
+            div(class="div-control")
+                label(class="cardcount", id="amount-label") x/x
+            div(class="div-answers hidden")
+                a(class="btn btn-primary" onclick="rightAnswer()") I was right!
+                a(class="btn btn-primary" onclick="wrongAnswer()") I was wrong...
+
+        div(class="setup")
+            p(class="setupTitle") Fill in the rules for your test
+            br
+            br
+            p(class="setupText") Number of cards 
+            input(class="form-control" type='number', name="quantity", id="quantity" min="1", value="1")
+            br
+            p(class="setupText") Count down timer 
+            p(style="font-size:10px;") Zero will deactive the countdown
+            input(class="form-control" type='number', name="countdownTimer", id="countdownTimer" min="0", value="0")
+            br
+            a(class="btn btn-primary" onclick="startTest()") Start test
+
+        div(class="results hidden")
+            p(class="resultsMention") ???
+            br
+            br
+            p(class="resultsScoreText") Score 
+            p(class="resultScore") ???
+            br
+            a(class="btn btn-primary" onclick="location.reload();") Retake test
+        div(class="countdown hidden")
+            p(class="countdownTime") ???
+    script(src='/public/scripts/card.js')
+    script(src='/public/scripts/confetti.js')

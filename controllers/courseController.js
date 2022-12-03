@@ -7,7 +7,7 @@ const Favorite = require("../models/Favorite");
 const Visit = require("../models/Visit");
 const createProfilePicture = require("../utils/createProfilePicture");
 const Image = require("../models/Image");
-
+require('mongoose-query-random');
 
 exports.course_personal_list = async (req, res, next) => {
     // If not logged in, go to login page and redirect after
@@ -31,7 +31,7 @@ exports.course_personal_list = async (req, res, next) => {
     const successes = req.flash('successes') || [];
     const errors = req.flash('errors') || [];
     const stored = req.flash('stored') || [];
-    res.render("course_personal_list", {course_list: courses, favorites, recents, successes, errors, stored , user: req.user});
+    res.render("course_personal_list", {course_list: courses, favorites, recents, successes, errors, stored , user: req.user, page: "courses"});
 };
 
 exports.course_public_list = async (req, res, next) => {
@@ -41,6 +41,11 @@ exports.course_public_list = async (req, res, next) => {
         res.redirect("/login");
         return;
     } 
+
+    // Get vars geven in the request
+    var searchType = req.query.searchType || "name";
+    var searchItem = req.query.searchItem || "name";
+    console.log(searchType + "  " + searchItem);
 
     const successes = req.flash('successes') || [];
     const errors = req.flash('errors') || [];
@@ -53,26 +58,26 @@ exports.course_public_list = async (req, res, next) => {
             var query =   {
                 $and: [
                     {"public":true},
-                    {'name': new RegExp(req.query.searchTerm, 'i')}
+                    {[searchType]: new RegExp(req.query.searchTerm, 'i')}
             ]};
             courses = await Course.find(query)         
-                .sort("name")
+                .sort(searchItem)
                 .limit(3);
                         
             count = await Course.count(query);
             favorites = await Favorite.find({user: req.user._id}, "course");
-            res.render("course_public_list", {course_list: courses, favorites, user:req.user, count, successes, errors, stored})
+            res.render("course_public_list", {course_list: courses, favorites, user:req.user, count, successes, errors, stored, page: "courses"})
             return;
         }
     }
     
     // Find all the courses that are public, also get favorites
     courses = await Course.find({"public":true})      
-        .sort("name")
+        .sort(searchItem)
         .limit(3);
     count = await Course.count({"public":true});
     favorites = await Favorite.find({user: req.user._id}, "course");
-    res.render("course_public_list", {course_list: courses, favorites, user: req.user, count, successes, errors, stored});
+    res.render("course_public_list", {course_list: courses, favorites, user: req.user, count, successes, errors, stored, page: "courses"});
 };
 
 exports.course_create_get = function (req, res, next) {
@@ -86,7 +91,7 @@ exports.course_create_get = function (req, res, next) {
     const successes = req.flash('successes') || [];
     const errors = req.flash('errors') || [];
     const stored = req.flash('stored') || [];
-    res.render("course_form", {title: 'Flashcards | Course', successes, errors, stored});
+    res.render("course_form", {title: 'Flashcards | Course', successes, errors, stored, page: "courses"});
 
 };
 
@@ -114,7 +119,7 @@ exports.course_create_post = async function(req, res, next){
             });
         });
     } catch {
-        res.render("course_form", {user: req.user, errors: ["Something went wrong"], successes: [], stored: []});
+        res.render("course_form", {user: req.user, errors: ["Something went wrong"], successes: [], stored: [], page: "courses"});
     }
 };
 
@@ -184,11 +189,10 @@ exports.course_get_details = async (req, res, next) => {
 
 };
 
-exports.course_cards = function (req, res, next) {
-    
-    Card.find({courseId: req.params.id}).exec(function (err, cards) {
+exports.course_cards = async function (req, res, next) {
+    Card.find({courseId: req.params.id}).random(parseInt(req.params.quantity), true, function(err, cards) {
         res.status(200).json(cards);
-    });
+    });    
 }
 
 exports.course_favorite_post = async (req, res, next) => {
@@ -265,11 +269,14 @@ exports.course_favorite_post = async (req, res, next) => {
 exports.course_load_more = async (req, res) => {
   
     // Get vars geven in the request
-    var filter = req.body.filter || "name";
+    var searchType = req.body.searchType || "name";
+    var searchItem = req.body.searchItem || "name";
     var skip = req.body.skip || 0;
     var limit = req.body.limit || 9;
     var search = req.body.search || "";
+    console.log(searchType + "  " + searchItem);
 
+    
     // If there is a search
     if(search){
         courses = await Course.find(
@@ -277,10 +284,10 @@ exports.course_load_more = async (req, res) => {
             {
                 $and: [
                     {"public":true},
-                    {'name': new RegExp(req.query.searchTerm, 'i')}
+                    {[searchType]: new RegExp(req.body.searchTerm, 'i')}
             ]})
         .lean()
-        .sort(filter)
+        .sort(searchItem)
         .skip(skip)
         .limit(limit);
 
@@ -296,7 +303,7 @@ exports.course_load_more = async (req, res) => {
     // Limit: only fetch a certain amount of courses
     courses = await Course.find({"public":true})    
         .lean()
-        .sort(filter)
+        .sort(searchItem)
         .skip(skip)
         .limit(limit);
     
@@ -309,7 +316,7 @@ exports.course_delete_get = async (req, res) => {
 
     var course = await Course.findById(req.params.id);
     if(course){
-      res.render("course_delete", {course: course, title: 'Flashcards | Delete'});
+      res.render("course_delete", {course: course, title: 'Flashcards | Delete', page: "courses", page: "courses"});
     }
     else{
       res.status(400).json("Course not found");
@@ -358,7 +365,7 @@ exports.course_delete_post = async (req, res) => {
       const successes = req.flash('successes') || [];
       const errors = req.flash('errors') || [];
       const stored = req.flash('stored') || [];
-      res.render("course_update", {course: course, title: 'Flashcards | Update Course', successes, errors, stored});
+      res.render("course_update", {course: course, title: 'Flashcards | Update Course', successes, errors, stored,page: "courses"});
     }
     else{
       res.status(400).json("Course not found");

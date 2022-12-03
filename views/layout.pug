@@ -14,12 +14,6 @@ html(lang='en')
     link(rel="stylesheet" href='/public/stylesheets/cookies.css')
     link(href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet' crossorigin="anonymous")
     link(rel='icon', href="/public/media/favicon.svg") 
-    script(async, src="https://www.googletagmanager.com/gtag/js?id=G-E91YF32R8C")
-    script.
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-E91YF32R8C');
 
 
   body.preload
@@ -38,8 +32,12 @@ html(lang='en')
                 li
                   div(class='nav-list-item')
                     a(href='/')
-                      i.bx.bx-grid-alt
-                      span.links_name Dashboard
+                      if page == "dashboard"
+                        i.bx.bxs-grid-alt
+                        span.links_name.bolder Dashboard
+                      else 
+                        i.bx.bx-grid-alt
+                        span.links_name Dashboard
                     span.sub-menu
                       a(class='links_name' href='/') Dashboard
           
@@ -47,8 +45,12 @@ html(lang='en')
                   div(class='nav-list-item')
                     i.bx.bxs-chevron-down.arrow
                     a(href="/courses/personal")
-                      i(class="fa-solid fa-graduation-cap")
-                      span.links_name Courses
+                      if page == "courses"
+                        i.bx.bxs-book
+                        span.links_name.bolder Courses
+                      else 
+                        i.bx.bx-book
+                        span.links_name Courses
                     ul.sub-menu
                       li
                         a(class='links_name' href='/courses/personal') Courses
@@ -57,31 +59,18 @@ html(lang='en')
                       li
                         a(class='closed' href='/courses/public') Public
                       
-                  
                 li
-                  div(class='nav-list-item')
+                  div(class='nav-list-item')  
                     a(href='/cards/create') 
-                      i.bx.bx-credit-card-front
-                      span.links_name Cards
+                      if page == "cards"
+                        i.bx.bxs-collection
+                        span.links_name.bolder Cards
+                      else 
+                        i.bx.bx-collection
+                        span.links_name Cards
                     span.sub-menu
                       a(class='links_name' href='/cards/create') Cards
-                //- li
-                //-   div(class='nav-list-item')
-                //-     i.bx.bxs-chevron-down.arrow
-                //-     a
-                //-       i.bx.bx-chat
-                //-       span.links_name Creation
-                //-     ul.sub-menu
-                //-       li
-                //-         a(class='links_name' href='') Creation
-                //-       li
-                //-         a(class='closed' href='/catalog/author/create') Author
-                //-       li
-                //-         a(class='closed' href='/catalog/genre/create') Genres
-                //-       li
-                //-         a(class='closed' href='/catalog/book/create') Books
-                //-       li
-                //-         a(class='closed' href='/catalog/bookinstance/create') Bookinstances
+
                 li 
                   div(class='nav-list-item')
                     div(class="div-mode-selector")
@@ -118,7 +107,7 @@ html(lang='en')
                             p #{user.username}
                           div(class='job')
                             p #{user.firstName} #{user.lastName}
-                        a(href='/logout')
+                        a(href='/logout' style="justify-content: flex-end")
                           i(class='bx bx-log-out')
 
         div(class='col-sm-10')
@@ -148,18 +137,17 @@ html(lang='en')
                   p(class="cookie-banner-text") Adjust the cookies you want to share <br> Afterwards go back to the other side
                   form(
                   id="cookieForm"
-                  action="user/setcookie" 
                   method="POST"
                   )   
                     div.centred
-                      label(for="marketing") Marketing
-                      input(type="checkbox" class="cookieCheckbox" id="marketing" name="marketing" checked) 
+                      label(for="tpc") Third party cookies
+                      input(type="checkbox" class="cookieCheckbox" id="tpc" name="tpc" checked) 
                     div.centred
                       label(for="analythics") Analythics
                       input(type="checkbox" class="cookieCheckbox" id="analythics" name="analythics" checked) 
                     div.centred
-                      label(for="spam") Spam
-                      input(type="checkbox" class="cookieCheckbox" id="spam" name="spam" checked)                       
+                      label(for="other") Other
+                      input(type="checkbox" class="cookieCheckbox" id="other" name="other" checked)                       
                       
 
       

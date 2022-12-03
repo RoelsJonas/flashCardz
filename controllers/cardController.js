@@ -37,7 +37,7 @@ exports.card_create_get = function (req, res, next) {
                         console.log(error);
                     }
 
-                    res.render("card_form", {user: req.user, courses: results.courses, cardCreation})
+                    res.render("card_form", {user: req.user, courses: results.courses, cardCreation, page: "cards"})
                 }
             );
         } 

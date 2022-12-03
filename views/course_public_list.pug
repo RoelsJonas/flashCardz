@@ -20,14 +20,62 @@ block content
             div(class="animation start-publiccourses")
 
         form(method='GET' action='')
-            div.form-group
-            input.form-control(type='text', placeholder='Search for course', name='searchTerm', required='true')
- 
+            .search-bar
+                .search-category
+                    a()
+                        span Filters
+                        i(class='bx bx-chevron-down')
+                    .category-menu
+                        span.subject Sort items
+                        div(class="categoryItems")
+                            div(class="categoryRow")
+                                input(type='radio', name='searchItem', value="name" id="nameItem")
+                                label(for='nameItem') 
+                                    span Name 
+                                    i(class="bx bx-check")
+                            div(class="categoryRow")
+                                input(type='radio', name='searchItem', value="-numCards" id="cardsItem") 
+                                label(for='cardsItem') 
+                                    span Cards 
+                                    i(class="bx bx-check")
+                            div(class="categoryRow")
+                                input(type='radio', name='searchItem', value="-numVisits" id="visitsItem") 
+                                label(for='visitsItem') 
+                                    span Visits 
+                                    i(class="bx bx-check")                                
+                            div(class="categoryRow")
+                                input(type='radio', name='searchItem', value="-numFavorites" id="favoritesItem") 
+                                label(for='favoritesItem') 
+                                    span Favorites 
+                                    i(class="bx bx-check")
+                        br
+                        span.subject Sort type
+                        div(class="categoryTypes")
+                            div(class="categoryRow")
+                                input(type='radio', name='searchType', value="name" id="nameType") 
+                                label(for='nameType') 
+                                    span Name 
+                                    i(class="bx bx-check")
+                            div(class="categoryRow")
+                                input(type='radio', name='searchType', value="school" id="schoolType") 
+                                label(for='schoolType') 
+                                    span School 
+                                    i(class="bx bx-check")
+                            div(class="categoryRow")
+                                input(type='radio', name='searchType', value="code" id="codeType") 
+                                label(for='codeType') 
+                                    span Code 
+                                    i(class="bx bx-check")                               
+                label.input-search
+                    input.form-control(type='text', placeholder='Search for course', name='searchTerm')
+                button.search-btn(type="submit")
+                    i(class='bx bx-search')
+
         hr
         div(class="publicCourses")
             h4 Public courses
             h10 Results #{count}
-            ul(class="courseList")
+            ul(class="courseList" style="justify-content: center;")
                 each course in course_list
                     li(class="courseItem" data-id=`${course._id}`)
                         div(onclick="loadModal(this)", class="courseLink") 
@@ -55,7 +103,8 @@ block content
                             if course.image 
                                 img(src="image/"+course.image class="courseImage", onerror="this.style.display='none'", alt=" ")
                 else 
-                    li No public courses yet
+                    br
+                    li No public courses!
 
             div(class="courseShowMore")
                 span Show More 
@@ -72,8 +121,6 @@ block content
                     div(class="courseModalHeader")
                         img(class="courseModalImage")
                         p(class="courseModalTitle")
-                    br
-                    br
                     br
                     br
                     a(class="btn btn-primary" id="courseModalTest" onclick="event.stopPropagation();") Take test

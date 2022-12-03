@@ -44,3 +44,9 @@ p{
     font-family: inherit;
     font-size: inherit;
 }
+
+
+.yt_embed {
+  width: 60vw;
+  height: 35vw;
+}

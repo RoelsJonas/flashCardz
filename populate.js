@@ -279,42 +279,44 @@ function createCourses(cb) {
         cb);
 }
 
-function createCards(cb) {
-  async.series([
-    function(callback) {
+async function createCards() {
       for(var i = 0; i < 250; i++){
         var course = courses[Math.floor(Math.random()*courses.length)];
         var creator = course.creator;
-        cardCreate(creator, course._id, "Dit is een random title" + i, "Hier komt een random vraag" + i, "Hier komt een random antwoord " + i, callback);
+        cardCreate(creator, course._id, "Dit is een random title" + i, "Hier komt een random vraag" + i, "Hier komt een random antwoord " + i);
+        await Course.findOneAndUpdate({ _id: course._id}, {
+          $inc: {
+              numCards: 1
+          }
+      });
       }
-    },
-    ],
-    // optional callback
-    cb);
 }
 
-function createVisits() {
-  async.series([
-    function() {
+async function createVisits() {
       for(var i = 0; i < 50; i++){
         var course = courses[Math.floor(Math.random()*courses.length)];
         var user = users[Math.floor(Math.random()*users.length)];
-        visitCreate(user._id, course._id, callback);
+        visitCreate(user._id, course._id);
+        await Course.findOneAndUpdate({ _id: course._id}, {
+          $inc: {
+              numVisits: 1
+          }
+      });
       }
-    },
-    ]);
+    
 }
 
-function createFavorites() {
-  async.series([
-    function() {
+async function createFavorites() {
       for(var i = 0; i < 50; i++){
         var course = courses[Math.floor(Math.random()*courses.length)];
         var user = users[Math.floor(Math.random()*users.length)];
         favoriteCreate(user._id, course._id);
+        await Course.findOneAndUpdate({ _id: course._id}, {
+          $inc: {
+              numFavorites: 1
+          }
+      });
       }
-    },
-    ]);
 }
 
 Populate();
@@ -322,6 +324,7 @@ async function Populate(){
   users = await User.find({});
   courses = await Course.find({});
   async.series([
+      createVisits,
       createFavorites
   ],
   );

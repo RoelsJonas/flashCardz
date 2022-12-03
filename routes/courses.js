@@ -14,7 +14,7 @@ router.post("/create", isLoggedIn, courseController.course_create_post);
 
 router.get("/course_details/:cid/:uid", isLoggedIn, courseController.course_get_details);
 
-router.get("/cards/:id", courseController.course_cards);
+router.get("/cards/:id/:quantity", courseController.course_cards);
 
 router.post("/favorite/:cid/:uid", courseController.course_favorite_post);
 

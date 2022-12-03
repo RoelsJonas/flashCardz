@@ -154,7 +154,7 @@
     transition: 0.4s;
 }
 .cookieCheckbox:checked{
-    background: var(--primary-color);
+    background: var(--detail-color);
 }
 .cookieCheckbox::after {
     position: absolute;
