@@ -17,8 +17,7 @@ body{
   color: var(--text-color);
 }
 
-    
-:root:has(#light:checked){
+:root{
   --body-color: #E4E9F7;
 
   --primary-color: #695CFE;
@@ -36,7 +35,7 @@ body{
   --darkScale: 1;
 }
 
-:root:has(#dark:checked){
+body.dark{
   --body-color: #222033;
 
   --primary-color: #FFF;
