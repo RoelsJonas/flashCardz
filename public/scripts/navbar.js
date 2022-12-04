@@ -1,18 +1,24 @@
 let sidebar = document.querySelector(".sidebar");
 let closeBtn = document.querySelector("#btn");
-// let themes = document.querySelectorAll('[name="theme"]');
 let themes = [document.querySelector("#light"), document.querySelector("#dark")];
 let sunIcon = document.querySelector("#sun");
-let moonIcon = document.querySelector("#moon");
 
 sunIcon.addEventListener("click", () => {
-    themes[0].checked = true;
-    storeTheme(themes[0].id);
-});
-
-moonIcon.addEventListener("click", () => {
-    themes[1].checked = true;
-    storeTheme(themes[1].id);
+    if(themes[0].checked === true) {
+        sunIcon.classList.add("bx-sun");
+        sunIcon.classList.remove("bx-moon");
+        themes[0].checked = false;
+        themes[1].checked = true;
+        storeTheme(themes[1].id);
+    }
+    else {
+        sunIcon.classList.remove("bx-sun");
+        sunIcon.classList.add("bx-moon");
+        themes[0].checked = true;
+        themes[1].checked = false;
+        storeTheme(themes[0].id);
+    }
+    
 });
 
 setTheme();
@@ -29,11 +35,20 @@ function storeTheme(themeId) {
 
 function setTheme() {
     var selected = localStorage.getItem("theme");
-    themes.forEach((theme) => {
-        if(theme.id == selected) {
-            theme.checked = true;
-        }
-    });
+    if(selected == themes[1].id) {
+        sunIcon.classList.add("bx-sun");
+        sunIcon.classList.remove("bx-moon");
+        themes[0].checked = false;
+        themes[1].checked = true;
+        storeTheme(themes[1].id);
+    }
+    else {
+        sunIcon.classList.remove("bx-sun");
+        sunIcon.classList.add("bx-moon");
+        themes[0].checked = true;
+        themes[1].checked = false;
+        storeTheme(themes[0].id);
+    }
 }
 
 // RUN ON START
@@ -50,6 +65,7 @@ if(sessionStorage.navbarStatus) {
 else {
     sessionStorage.navbarStatus = false;
 }
+
 // Note we disable all transitions for the because otherwise it wont look very good and activate it here again
 setTimeout(function () {
     document.body.classList.remove("preload")
