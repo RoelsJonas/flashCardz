@@ -4,8 +4,9 @@ var router = express.Router();
 require('dotenv').config();
 
 router.get("/", function(req, res, next) {
+  console.log(req.protocol); 
   if(req.headers.host != "localhost:3000") {
-    if(req.protocol != 'https') {
+    if(req.protocol === 'http') {
       res.redirect("https://" + req.headers.host + "/login");
     }
   }
