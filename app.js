@@ -24,21 +24,9 @@ var singoutRouter = require("./routes/logout");
 var recoveryRouter = require("./routes/recovery");
 var cardRouter = require("./routes/cards");
 
-//Instantiating MongoDB database
-// const mongoose = require("mongoose");
-// const mongoDB = "mongodb+srv://Jonil:Jonil123@flashcardz.7w8whn4.mongodb.net/flashcardz?retryWrites=true&w=majority";
-// mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
-// const db = mongoose.connection;
-// db.on("error", console.error.bind(console, "MongoDB connection error:"));
-
 var app = express();
 
 app.use(compression());
-// app.use(helmet({
-//   contentSecurityPolicy: false,
-// }));
-
-
 
 app.use(cors());
 app.use(session({
@@ -47,6 +35,12 @@ app.use(session({
   saveUninitialized: true,
 }));
 app.use(flash());
+
+if(process.env.FORCE_HTTPS === 'true') {
+  app.get("*", (req, res) => {
+    res.redirect('https://' + req.headers.host + req.url);
+  })
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -87,11 +81,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
   console.log("ERROR");
 });
-
-
-
-//Set the .env base_url value
-// var serverUrl = req.protocol + '://' + req.get('host');
-// process.env.BASE_URL = serverUrl;
 
 module.exports = app;
