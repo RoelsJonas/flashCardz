@@ -94,7 +94,7 @@
     padding-right: 3vw;
     font-family: 'Roboto', sans-serif;
     align-items: center;
-    color: black;
+    color: var(--text-color);
 }
 
 .div-control{
