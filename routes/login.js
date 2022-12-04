@@ -6,16 +6,15 @@ require('dotenv').config();
 router.get("/", function(req, res, next) {
   console.log(req.protocol); 
   if(req.headers.host != "localhost:3000") {
-    if(req.protocol === 'http') {
+    if(req.headers['x-forwarded-proto'] !== "https") {
       res.redirect("https://" + req.headers.host + "/login");
+      return
     }
-  }
-  else{ 
-    const successes = req.flash('successes') || [];
-    const errors = req.flash('errors') || [];
-    const stored = req.flash('stored') || [];
-    res.render("login", { title: 'Flashcards | Login', successes, errors, stored});
-  }
+  } 
+  const successes = req.flash('successes') || [];
+  const errors = req.flash('errors') || [];
+  const stored = req.flash('stored') || [];
+  res.render("login", { title: 'Flashcards | Login', successes, errors, stored});
   });
 
 
