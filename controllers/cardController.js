@@ -7,12 +7,6 @@ const flash = require("flash");
 const { body, validationResult } = require("express-validator");
 
 exports.card_create_get = function (req, res, next) {
-    if(req.headers.host != "localhost:3000") {
-        if(!req.secure) {
-          res.redirect("https://" + req.headers.host + req.url);
-          return;
-        }
-    }
     try{
         const cardCreation = req.flash("cardCreation") || [];
         if(req.user){

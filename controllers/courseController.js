@@ -10,12 +10,6 @@ const Image = require("../models/Image");
 require('mongoose-query-random');
 
 exports.course_personal_list = async (req, res, next) => {
-    if(req.headers.host != "localhost:3000") {
-        if(!req.secure) {
-          res.redirect("https://" + req.headers.host + req.url);
-          return;
-        }
-    }
     // If not logged in, go to login page and redirect after
     if(!req.user){
         req.session.redirectTo = '/courses/personal';
@@ -41,12 +35,6 @@ exports.course_personal_list = async (req, res, next) => {
 };
 
 exports.course_public_list = async (req, res, next) => {
-    if(req.headers.host != "localhost:3000") {
-        if(!req.secure) {
-          res.redirect("https://" + req.headers.host + req.url);
-          return;
-        }
-    }
     // If not logged in, go to login page and redirect after
     if(!req.user){
         req.session.redirectTo = '/courses/public';
