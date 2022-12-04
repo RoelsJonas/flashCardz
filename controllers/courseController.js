@@ -316,7 +316,17 @@ exports.course_delete_get = async (req, res) => {
 
     var course = await Course.findById(req.params.id);
     if(course){
-      res.render("course_delete", {course: course, title: 'Flashcards | Delete', page: "courses", page: "courses"});
+        var creator = await User.findById(course.creator);
+        if(creator) {
+            if(creator.username != req.user.username) {
+                res.status(400).json("Access denied");
+                return;
+            }
+            res.render("course_delete", {course: course, title: 'Flashcards | Delete', page: "courses", page: "courses"});
+        }
+        else{
+            res.status(400).json("Creator not found");
+        }
     }
     else{
       res.status(400).json("Course not found");
@@ -366,6 +376,7 @@ exports.course_delete_post = async (req, res) => {
         if(creator) {
             if(creator.username != req.user.username) {
                 res.status(400).json("Access denied");
+                return;
             }
             const successes = req.flash('successes') || [];
             const errors = req.flash('errors') || [];
