@@ -201,3 +201,15 @@
         left: 0%;
     }
 }
+
+@media only screen and (max-width: 768px) {
+    .div-answers {
+        top: 60%;
+        height: 65px;
+    }
+
+    .results {
+        position: relative;
+        top: -20vh;
+    }
+}
