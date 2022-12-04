@@ -36,12 +36,6 @@ app.use(session({
 }));
 app.use(flash());
 
-if(process.env.FORCE_HTTPS === 'true') {
-  app.get("*", (req, res) => {
-    res.redirect('https://' + req.headers.host + req.url);
-  })
-}
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
