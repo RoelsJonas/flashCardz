@@ -5,16 +5,16 @@ let sunIcon = document.querySelector("#sun");
 
 sunIcon.addEventListener("click", () => {
     if(themes[0].checked === true) {
-        sunIcon.classList.add("bx-sun");
-        sunIcon.classList.remove("bx-moon");
+        sunIcon.classList.add("bx-moon");
+        sunIcon.classList.remove("bx-sun");
         themes[0].checked = false;
         themes[1].checked = true;
         storeTheme(themes[1].id);
         document.body.classList.remove("dark");
     }
     else {
-        sunIcon.classList.remove("bx-sun");
-        sunIcon.classList.add("bx-moon");
+        sunIcon.classList.remove("bx-moon");
+        sunIcon.classList.add("bx-sun");
         themes[0].checked = true;
         themes[1].checked = false;
         storeTheme(themes[0].id);
@@ -38,16 +38,16 @@ function storeTheme(themeId) {
 function setTheme() {
     var selected = localStorage.getItem("theme");
     if(selected == themes[1].id) {
-        sunIcon.classList.add("bx-sun");
-        sunIcon.classList.remove("bx-moon");
+        sunIcon.classList.add("bx-moon");
+        sunIcon.classList.remove("bx-sun");
         themes[0].checked = false;
         themes[1].checked = true;
         storeTheme(themes[1].id);
         document.body.classList.remove("dark");
     }
     else {
-        sunIcon.classList.remove("bx-sun");
-        sunIcon.classList.add("bx-moon");
+        sunIcon.classList.remove("bx-moon");
+        sunIcon.classList.add("bx-sun");
         themes[0].checked = true;
         themes[1].checked = false;
         storeTheme(themes[0].id);
