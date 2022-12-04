@@ -4,8 +4,8 @@ var router = express.Router();
 const courseController = require("../controllers/courseController");
 var {isLoggedIn, state} = require("../controllers/middleware");
 
-/* GET home page. */
 router.get('/personal', isLoggedIn, courseController.course_personal_list);
+
 router.get('/public', isLoggedIn, courseController.course_public_list);
 
 router.get("/create", isLoggedIn, courseController.course_create_get);

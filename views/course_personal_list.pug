@@ -4,6 +4,7 @@ block content
     head
         link(rel='stylesheet', href='/public/stylesheets/coursesList.css')
         link(rel='stylesheet', href='/public/stylesheets/courseModal.css')
+
     body
         h1 Courses:
 
@@ -18,10 +19,6 @@ block content
             a(href='personal', class="courseNavItem") Your courses
             a(href='public', class="courseNavItem") Public courses
             div(class="animation start-personalcourses")
-
-        //- form(method='GET' action='')
-        //-     div.form-group
-        //-     input.form-control(type='text', placeholder='Search for course', name='searchTerm', required='true')
 
         hr
         div(class="recentlyCourses")
@@ -170,5 +167,4 @@ block content
         <!-- This script is used to pass variables from this pug file to the courseAddition javascript file -->
     script(type="text/javascript").
         var user = !{JSON.stringify(user)};
-    //- script(src=src="https://unpkg.com/colorthief@2.3.2/dist/color-thief.umd.js")
     script(src='/public/scripts/courseModal.js')
