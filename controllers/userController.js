@@ -191,7 +191,10 @@ try {
 
 // Get the user update profile
 router.get("/:id/update", isLoggedIn, async (req, res) =>{
-
+  if(!req.user) {
+    res.redirect("/login");
+    return;
+  }
   var user = await User.findById(req.params.id);
   if(user){
     if(req.user.username != user.username) {
@@ -227,7 +230,10 @@ router.get("/:id/general", isLoggedIn, async (req, res) =>{
 
 // Get the user update profile
 router.get("/:id/advanced", isLoggedIn, async (req, res) =>{
-
+  if(!req.user) {
+    res.redirect("/login");
+    return;
+  }
   var user = await User.findById(req.params.id);
   if(user){
     if(req.user.username != user.username) {
@@ -299,7 +305,10 @@ router.post("/:id/update", upload.single("profilepicture"), async (req, res) => 
 
 // Get the user update profile
 router.get("/:id/delete", isLoggedIn, async (req, res) =>{
-
+  if(!req.user) {
+    res.redirect("/login");
+    return;
+  }
   var user = await User.findById(req.params.id);
   if(user){
     if(req.user.username != user.username) {

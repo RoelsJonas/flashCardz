@@ -369,7 +369,10 @@ exports.course_delete_post = async (req, res) => {
   
 
   exports.course_update_get = async (req, res) => {
-
+    if(!req.user) {
+        res.redirect("/login");
+        return;
+    }
     var course = await Course.findById(req.params.id);
     if(course){
         var creator = await User.findById(course.creator);
@@ -432,6 +435,10 @@ exports.course_delete_post = async (req, res) => {
 
 // Get the course image
 exports.course_image_get = async (req, res) => {
+    if(!req.user) {
+        res.redirect("/login");
+        return;
+    }
     try{
       let img = await Image.findOne({_id: req.params.id});
       if(!img){
