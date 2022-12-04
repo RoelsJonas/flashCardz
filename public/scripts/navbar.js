@@ -10,6 +10,7 @@ sunIcon.addEventListener("click", () => {
         themes[0].checked = false;
         themes[1].checked = true;
         storeTheme(themes[1].id);
+        document.body.classList.remove("dark");
     }
     else {
         sunIcon.classList.remove("bx-sun");
@@ -17,6 +18,7 @@ sunIcon.addEventListener("click", () => {
         themes[0].checked = true;
         themes[1].checked = false;
         storeTheme(themes[0].id);
+        document.body.classList.add("dark");
     }
     
 });
@@ -41,6 +43,7 @@ function setTheme() {
         themes[0].checked = false;
         themes[1].checked = true;
         storeTheme(themes[1].id);
+        document.body.classList.remove("dark");
     }
     else {
         sunIcon.classList.remove("bx-sun");
@@ -48,6 +51,7 @@ function setTheme() {
         themes[0].checked = true;
         themes[1].checked = false;
         storeTheme(themes[0].id);
+        document.body.classList.add("dark");
     }
 }
 
