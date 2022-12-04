@@ -151,7 +151,7 @@ function resetCountdown(){
     setCountdown();
 }
 function countdownPassed(){
-    flashcard_container.classList.add('rotate');
+    flashcard_container.classList.toggle('rotate');
     flashcard_container.style.transform  = transforms.apply(null, [0,0, flashcard_container]);
     side = !side;
     setTimeout(() => {
