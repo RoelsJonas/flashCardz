@@ -362,10 +362,19 @@ exports.course_delete_post = async (req, res) => {
 
     var course = await Course.findById(req.params.id);
     if(course){
-      const successes = req.flash('successes') || [];
-      const errors = req.flash('errors') || [];
-      const stored = req.flash('stored') || [];
-      res.render("course_update", {course: course, title: 'Flashcards | Update Course', successes, errors, stored,page: "courses"});
+        var creator = await User.findById(course.creator);
+        if(creator) {
+            if(creator.username != req.user.username) {
+                res.status(400).json("Access denied");
+            }
+            const successes = req.flash('successes') || [];
+            const errors = req.flash('errors') || [];
+            const stored = req.flash('stored') || [];
+            res.render("course_update", {course: course, title: 'Flashcards | Update Course', successes, errors, stored,page: "courses"});
+        }
+        else {
+            res.status(400).json("Creator not found")
+        }
     }
     else{
       res.status(400).json("Course not found");
