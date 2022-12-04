@@ -194,6 +194,10 @@ router.get("/:id/update", isLoggedIn, async (req, res) =>{
 
   var user = await User.findById(req.params.id);
   if(user){
+    if(req.user.username != user.username) {
+      res.status(400).json("Access denied");
+      return;
+    }
     const successes = req.flash('successes') || [];
     const errors = req.flash('errors') || [];
     const stored = req.flash('stored') || [];
@@ -226,6 +230,10 @@ router.get("/:id/advanced", isLoggedIn, async (req, res) =>{
 
   var user = await User.findById(req.params.id);
   if(user){
+    if(req.user.username != user.username) {
+      res.status(400).json("Access denied");
+      return;
+    }
     const successes = req.flash('successes') || [];
     const errors = req.flash('errors') || [];
     const stored = req.flash('stored') || [];
@@ -294,6 +302,10 @@ router.get("/:id/delete", isLoggedIn, async (req, res) =>{
 
   var user = await User.findById(req.params.id);
   if(user){
+    if(req.user.username != user.username) {
+      res.status(400).json("Access denied");
+      return;
+    }
     const successes = req.flash('successes') || [];
     const errors = req.flash('errors') || [];
     res.render("user_delete", {user: user, title: 'Flashcards | Delete', successes, errors});
