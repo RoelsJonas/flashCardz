@@ -30,24 +30,28 @@ body{
   --text-color: #707070;
   --text-highlight-color: black;
   --profile-color: #707070;
---textbox-background: #FFF;
---invert: 0;
+  --textbox-background: #FFF;
+  --invert: 0;
+  --lightScale: 0;
+  --darkScale: 1;
 }
 
 :root:has(#dark:checked){
---body-color: #222033;
+  --body-color: #222033;
 
 --primary-color: #FFF;
 --primary-color-light: #1d1b31;
 --detail-color:#695CFE;
 
---sidebar-color: #11101d;
+  --sidebar-color: #11101d;
 
---text-color: #FFF;
---text-highlight-color: #FFF;
---textbox-background: #1D1B31;
+  --text-color: #FFF;
+  --text-highlight-color: #FFF;
+  --textbox-background: #1D1B31;W
 
---invert: 1;
+  --invert: 1;
+  --lightScale: 1;
+  --darkScale: 0;
 }
 
 ::selection{
@@ -578,6 +582,16 @@ opacity: 0;
   scale: 1;
   border: var(--sidebar-color);
 }
+
+/* #sun {
+  left: 0;
+  scale: var(--lightScale);
+}
+
+#moon {
+  left: 0;
+  scale: var(--darkScale);
+} */
 
 .form-control:focus {
     color: var(--text-color);
